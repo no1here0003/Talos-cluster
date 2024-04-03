@@ -1,10 +1,9 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.thesteamedcrab.com/helmrelease_v2beta1.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app jellystat
-  namespace: media
+  name: &app lidarr
+  namespace: downloads
 spec:
   interval: 30m
   chart:
@@ -15,11 +14,8 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-
   maxHistory: 3
-
   install:
-    createNamespace: true
     remediation:
       retries: 3
 
@@ -28,12 +24,25 @@ spec:
     remediation:
       retries: 3
 
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: database
   uninstall:
     keepHistory: false
 
   values:
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        supplementalGroups:
+          - 65539
+
     controllers:
-      jellystat:
+      lidarr:
 
         annotations:
           reloader.stakater.com/auto: "true"
@@ -43,60 +52,62 @@ spec:
             image:
               repository: ghcr.io/onedr0p/postgres-init
               tag: 16
-
+              pullPolicy: IfNotPresent
             envFrom: &envFrom
               - secretRef:
                   name: *app
 
         containers:
-          jellystat:
+          lidarr:
             image:
-              repository: docker.io/cyfershepard/jellystat
-              tag: unstable@sha256:ed5e0afe09c85e77992ba7492ea5b7f751f446425aa956d14fd54bc073b78889
-
-            env:
-              TZ: ${TIMEZONE}
-
+              repository: ghcr.io/onedr0p/lidarr-develop
+              tag: 2.2.3.4098@sha256:ddb5035c57005792761e60371ab7e2ca3e0804fa5ab6952266b0d5f797ed08c2
             envFrom: *envFrom
 
     service:
-      jellystat:
-        controller: jellystat
+      lidarr:
+        controller: lidarr
         ports:
           http:
-            port: 3000
+            port: 8686
 
     ingress:
-      jellystat:
+      lidarr:
         enabled: true
-        className: nginx
-        annotations:
-          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN2}
-          cert-manager.io/cluster-issuer: letsencrypt-production
-          kubernetes.io/tls-acme: "true"
-          external-dns/is-public: "true"
+        className: "nginx"
         hosts:
-          - host: &host "jellystat.${SECRET_DOMAIN2}"
+          - host: &host lidarr.${INTERNAL_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix
                 service:
-                  identifier: jellystat
+                  identifier: lidarr
                   port: http
         tls:
           - hosts:
               - *host
-            secretName: jellystat.tls
+            secretName: lidarr.tls
 
     persistence:
-      backups:
+      media:
         type: nfs
-        path: /volume1/Kubernetes/jellystat
+        path: /volume1/Media/Music
         globalMounts:
-          - path: /app/backend/backup-data
+          - path: /media
+
+      temp:
+        type: nfs
+        path: /volume1/temp
+        globalMounts:
+          - path: /temp_dir
+
 
   valuesFrom:
     - kind: Secret
       name: *app
-      valuesKey: NAS2_ADDR
-      targetPath: persistence.backups.server
+      valuesKey: NAS1_ADDR
+      targetPath: persistence.media.server
+
+    - kind: Secret
+      name: *app
+      valuesKey: NAS1_ADDR
+      targetPath: persistence.temp.server

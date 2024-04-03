@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pgloader
+spec:
+  containers:
+    - name: pgloader
+      image: ghcr.io/roxedus/pgloader
+      envFrom: &envFrom
+        - secretRef:
+            name: radarr
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 30; done;" ]
+      volumeMounts:
+        - mountPath: /config
+          name: config
+  volumes:
+    - name: config
+      persistentVolumeClaim:
+        claimName: prowlarr
