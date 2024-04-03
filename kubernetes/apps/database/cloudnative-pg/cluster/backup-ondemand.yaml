@@ -1,0 +1,7 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Backup
+metadata:
+  name: postgres-ondemand
+spec:
+  cluster:
+    name: cluster1-v1
