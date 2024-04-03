@@ -28,7 +28,7 @@ spec:
     - name: intel-device-plugin-gpu
       namespace: kube-system
     - name: minio
-      namespace: storage
+      namespace: minio
     - name: volsync
       namespace: volsync-system
   values:
