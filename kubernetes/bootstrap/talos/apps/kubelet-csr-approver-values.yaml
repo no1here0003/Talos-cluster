@@ -1,0 +1,3 @@
+---
+providerRegex: ^(nuc11i7-1|nuc10i7-1|nuc10i7-2|nuc11i7-2|nuc13i7-1|nuc13i7-2|nuc13i7-3|nuc13i7-4)$
+bypassDnsResolution: true
