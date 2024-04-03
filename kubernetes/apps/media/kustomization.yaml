@@ -4,9 +4,9 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./plex/ks.yaml
-  # - ./overseerr/ks.yaml
-  # - ./tautulli/ks.yaml
-  # - ./jellyfin/ks.yaml
-  # - ./jellyfin/ks-test.yaml
+  - ./overseerr/ks.yaml
+  - ./tautulli/ks.yaml
+  - ./jellyfin/ks.yaml
+  - ./jellyfin/ks-test.yaml
   - ./jellyseerr/ks.yaml
-  # - ./jellystat/ks.yaml
+  - ./jellystat/ks.yaml
