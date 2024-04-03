@@ -36,7 +36,7 @@ spec:
       dashboard:
         ingressClassName: internal
         host:
-          name: &host rook.${SECRET_DOMAIN}
+          name: &host rook.192.168.10.40.nip.io
           path: /
         tls:
           - hosts: [*host]
@@ -212,7 +212,7 @@ spec:
           parameters:
             region: us-east-1
         ingress:
-          enabled: true
+          enabled: false
           ingressClassName: internal
           host:
             name: &host rgw.${SECRET_DOMAIN}
