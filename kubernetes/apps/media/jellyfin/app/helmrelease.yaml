@@ -1,0 +1,178 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app jellyfin
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: intel-device-plugin-gpu
+      namespace: kube-system
+    - name: minio
+      namespace: storage
+    - name: volsync
+      namespace: volsync-system
+  values:
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 44
+          - 105
+          - 100
+          - 106
+          - 65539
+
+    controllers:
+      jellyfin:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          jellyfin:
+            image:
+              repository: jellyfin/jellyfin
+              tag: 10.8.13-1
+            env:
+              DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+              JELLYFIN_FFmpeg__probesize: 50000000
+              JELLYFIN_FFmpeg__analyzeduration: 50000000
+              JELLYFIN_PublishedServerUrl: &host "jellyfin.${SECRET_DOMAIN2}"
+              TZ: ${TIMEZONE}
+
+            probes:
+              liveness: &probes
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 8096
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+                cpu: 1
+                memory: 16Gi
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 64Gi
+    service:
+      jellyfin:
+        controller: jellyfin
+        ports:
+          http:
+            port: *port
+    ingress:
+      jellyfin:
+        enabled: true
+        className: "nginx"
+        annotations:
+          hajimari.io/icon: simple-icons:jellyfin
+          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN2}
+          external-dns/is-public: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-production
+        hosts:
+          - host: *host
+            paths:
+              - path: /
+                service:
+                  identifier: jellyfin
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: "{{ .Release.Name }}.tls"
+
+    persistence:
+      config:
+        enabled: true
+        existingClaim: jellyfin
+
+      media:
+        type: nfs
+        path: /volume1/Media
+        globalMounts:
+          - path: /media
+            readOnly: true
+
+      media2:
+        type: nfs
+        path: /volume1/Media2
+        globalMounts:
+          - path: /media2
+            readOnly: true
+
+      media3:
+        type: nfs
+        path: /volume1/Media
+        globalMounts:
+          - path: /media3
+            readOnly: true
+
+      backups:
+        type: nfs
+        path: /volume1/Kubernetes/jellyfin
+        globalMounts:
+          - path: /backups
+
+      tmp:
+        type: emptyDir
+        globalMounts:
+          - path: /tmp
+
+      transcode:
+        type: emptyDir
+        globalMounts:
+          - path: /transcode
+
+  valuesFrom:
+    - kind: Secret
+      name: *app
+      valuesKey: NAS1_ADDR
+      targetPath: persistence.media.server
+
+    - kind: Secret
+      name: *app
+      valuesKey: NAS2_ADDR
+      targetPath: persistence.media2.server
+
+    - kind: Secret
+      name: *app
+      valuesKey: NAS3_ADDR
+      targetPath: persistence.media3.server
+
+    - kind: Secret
+      name: *app
+      valuesKey: NAS2_ADDR
+      targetPath: persistence.backups.server

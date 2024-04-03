@@ -1,0 +1,102 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: jellyseerr
+  namespace: media
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 3
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+
+  dependsOn:
+    - name: rook-ceph
+      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync-system
+
+  values:
+
+    controllers:
+      jellyseerr:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          app:
+            image:
+              repository: docker.io/fallenbagel/jellyseerr
+              tag: 1.7.0
+            env:
+              LOG_LEVEL: "info"
+              PORT: 8080
+            resources:
+              requests:
+                memory: 512M
+              limits:
+                memory: 1G
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+
+    service:
+      jellyseerr:
+        controller: jellyseerr
+        ports:
+          http:
+            port: 8080
+
+    ingress:
+      jellyseerr:
+        enabled: true
+        className: "nginx"
+        annotations:
+          nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN2}"
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          kubernetes.io/tls-acme: "true"
+          external-dns/is-public: "true"
+        hosts:
+          - host: &host "request.${SECRET_DOMAIN2}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: jellyseerr
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: jellyseer.tls
+
+
+    persistence:
+      config:
+        existingClaim: jellyseerr
+        globalMounts:
+          - path: /app/config
