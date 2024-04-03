@@ -5,6 +5,11 @@ resources:
   - ./backube.yaml
   - ./bjw-s.yaml
   - ./cilium.yaml
+  - ./cloudnative-pg.yaml
+  - ./external-dns.yaml
+  - ./external-secrets.yaml
+  - ./ingress.nginx.yaml
+  - ./intel.yaml
   - ./jetstack.yaml
   - ./metrics-server.yaml
   - ./openebs.yaml
