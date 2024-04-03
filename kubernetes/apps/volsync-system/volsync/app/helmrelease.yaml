@@ -25,7 +25,7 @@ spec:
   dependsOn:
     - name: snapshot-controller
       namespace: volsync-system
-    - name: rook-ceph
+    - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: minio
       namespace: minio
