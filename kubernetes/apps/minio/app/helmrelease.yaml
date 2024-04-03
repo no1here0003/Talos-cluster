@@ -1,0 +1,163 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: &app minio
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+        supplementalGroups:
+          - 65539
+
+    controllers:
+      minio:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          minio:
+            image:
+              repository: quay.io/minio/minio
+              tag: RELEASE.2024-03-26T22-10-45Z
+            env:
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN},https://s3.${SECRET_DOMAIN}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN}
+              MINIO_PROMETHEUS_JOB_ID: minio
+              MINIO_PROMETHEUS_URL: https://prometheus.${INTERNAL_DOMAIN}
+              MINIO_PROMETHEUS_AUTH_TYPE: public
+              MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
+              MINIO_UPDATE: "off"
+            envFrom:
+              - secretRef:
+                  name: &secret minio-secret
+            args:
+              - server
+              - /data
+              - --console-address
+              - :9001
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /minio/health/live
+                    port: &s3port 9000
+                  initialDelaySeconds: 30
+                  periodSeconds: 30
+                  timeoutSeconds: 10
+                  failureThreshold: 6
+              readiness: *probes
+              startup:
+                enabled: false
+            securityContext:
+              privileged: true
+              runAsUser: 99
+            resources:
+              requests:
+                memory: 100Mi
+                cpu: 100m
+              limits:
+                memory: 3Gi
+    service:
+      minio:
+        controller: minio
+        ports:
+          http:
+            port: 9001
+          s3:
+            port: *s3port
+    serviceMonitor:
+      minio:
+        serviceName: minio
+        enabled: true
+        endpoints:
+          - port: s3
+            scheme: http
+            path: /minio/v2/metrics/cluster
+            interval: 1m
+            scrapeTimeout: 10s
+    ingress:
+      minio:
+        enabled: true
+        className: nginx
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          kubernetes.io/tls-acme: "true"
+          external-dns/is-public: "true"
+        hosts:
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: minio
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: minio.tls
+
+      s3:
+        enabled: true
+        className: nginx
+        annotations:
+          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          kubernetes.io/tls-acme: "true"
+          external-dns/is-public: "true"
+        hosts:
+          - host: &s3Host s3.${SECRET_DOMAIN}
+            paths:
+              - path: /
+                service:
+                  identifier: minio
+                  port: s3
+        tls:
+          - hosts:
+              - *s3Host
+            secretName: s3.tls
+
+    persistence:
+      data:
+        type: nfs
+        globalMounts:
+          - path: /data
+
+  valuesFrom:
+    - kind: Secret
+      name: *secret
+      valuesKey: NAS3_ADDR
+      targetPath: persistence.data.server
+    - kind: Secret
+      name: *secret
+      valuesKey: MINIO_NFS_PATH
+      targetPath: persistence.data.path
