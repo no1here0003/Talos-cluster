@@ -8,7 +8,7 @@ resources:
   - ./cloudnative-pg.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
-  - ./ingress.nginx.yaml
+  - ./ingress-nginx.yaml
   - ./intel.yaml
   - ./jetstack.yaml
   - ./metrics-server.yaml
