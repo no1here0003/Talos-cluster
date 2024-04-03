@@ -25,7 +25,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: minio
-      namespace: storage
+      namespace: minio
     - name: openebs
       namespace: openebs-system
   values:
