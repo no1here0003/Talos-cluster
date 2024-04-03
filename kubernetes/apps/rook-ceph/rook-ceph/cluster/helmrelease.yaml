@@ -215,7 +215,7 @@ spec:
           enabled: false
           ingressClassName: internal
           host:
-            name: &host rgw.${SECRET_DOMAIN}
+            name: &host rgw.192.168.10.40.nip.io
             path: /
           tls:
             - hosts:
