@@ -55,7 +55,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: nginx-certificates
-  path: ./kubernetes/apps/network/nginx/internal
+  path: ./kubernetes/apps/networking/nginx/internal
   prune: true
   sourceRef:
     kind: GitRepository
