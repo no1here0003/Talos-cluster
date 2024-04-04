@@ -49,7 +49,7 @@ metadata:
   name: &app nginx-internal
   namespace: flux-system
 spec:
-  targetNamespace: network
+  targetNamespace: networking
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
