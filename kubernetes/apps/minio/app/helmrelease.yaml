@@ -24,6 +24,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: nginx-internal
+      namespace: networking
   values:
 
     defaultPodOptions:
@@ -108,12 +111,11 @@ spec:
     ingress:
       minio:
         enabled: true
-        className: nginx
+        className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
           kubernetes.io/tls-acme: "true"
-          external-dns/is-public: "true"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -128,12 +130,11 @@ spec:
 
       s3:
         enabled: true
-        className: nginx
+        className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
           kubernetes.io/tls-acme: "true"
-          external-dns/is-public: "true"
         hosts:
           - host: &s3Host s3.${SECRET_DOMAIN}
             paths:
