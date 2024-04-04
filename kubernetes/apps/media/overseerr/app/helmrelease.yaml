@@ -70,10 +70,8 @@ spec:
     ingress:
       overseerr:
         enabled: true
-        className: "nginx"
+        className: "external"
         annotations:
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
-          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
           - host: &host "request.${SECRET_DOMAIN}"

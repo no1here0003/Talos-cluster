@@ -96,7 +96,7 @@ spec:
     ingress:
       jellyt:
         enabled: true
-        className: "nginx"
+        className: "external"
         annotations:
           hajimari.io/icon: simple-icons:jellyfin
           external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN2}
