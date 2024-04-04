@@ -24,6 +24,21 @@ spec:
           repository: ghcr.io/muhlba91/external-dns-provider-adguard
           tag: v5.0.0@sha256:4cda12a6e865efbf7e1a3309bdbd66a5ae35ebfc5e035967e5cc4c55df952db9
           pullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8888
+            name: http
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 5            
         envFrom:
           - secretRef:
               name: adguard-secret
