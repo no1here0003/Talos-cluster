@@ -23,7 +23,7 @@ spec:
     remediation:
       retries: 5
   dependsOn:
-    - name: rook-ceph
+    - name: rook-ceph-cluster
       namespace: rookceph
     - name: volsync
       namespace: volsync-system
