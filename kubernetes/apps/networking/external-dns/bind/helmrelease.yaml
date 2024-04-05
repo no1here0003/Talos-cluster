@@ -40,7 +40,7 @@ spec:
         valueFrom:
           secretKeyRef:
             name: &secret external-dns-bind
-            key: RDNC_KEY
+            key: RNDC_KEY
     extraArgs:
       - --rfc2136-zone=${SECRET_DOMAIN}
       - --rfc2136-zone=${SECRET_DOMAIN2}
