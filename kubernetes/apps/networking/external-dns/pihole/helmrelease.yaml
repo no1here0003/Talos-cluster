@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: &app external-dns-bind
+  name: &app external-dns-pihole
 spec:
   interval: 30m
   chart:
@@ -27,7 +27,7 @@ spec:
     provider: pihole
     env:
       - secretRef:
-            name: external-dns-pihole
+          name: external-dns-pihole
     extraArgs:
       - --policy=upsert-only
       - --registry=noop
@@ -35,7 +35,6 @@ spec:
     policy: sync
     sources:
       - ingress
-      - service
     domainFilters:
       - "${SECRET_DOMAIN}"
       - "${SECRET_DOMAIN2}"
