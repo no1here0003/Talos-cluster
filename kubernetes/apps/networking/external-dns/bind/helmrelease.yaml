@@ -36,6 +36,8 @@ spec:
         value: kubernetes-main-key
       - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
         value: hmac-sha256
+      - name: EXTERNAL_DNS_RFC2136_ZONE
+        value: &domain ${SECRET_DOMAIN}
       - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
         valueFrom:
           secretKeyRef:
