@@ -29,9 +29,9 @@ spec:
       - secretRef:
           name: &secret external-dns-pihole
     extraArgs:
-      - --policy=upsert-only
       - --registry=noop
       - --ingress-class=internal
+    policy: upsert-only
     sources:
       - ingress
     domainFilters:
