@@ -25,7 +25,7 @@ spec:
   values:
     fullnameOverride: *app
     provider: pihole
-    env:
+    envFrom:
       - secretRef:
           name: external-dns-pihole
     extraArgs:
