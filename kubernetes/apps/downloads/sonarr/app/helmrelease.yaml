@@ -82,7 +82,7 @@ spec:
     ingress:
       sonarr:
         enabled: true
-        className: nginx
+        className: internal
         hosts:
           - host: &host "sonarr.${INTERNAL_DOMAIN}"
             paths:
