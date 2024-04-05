@@ -21,6 +21,7 @@ spec:
     - extract:
         key: volsync-minio
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
@@ -43,6 +44,7 @@ spec:
       fsGroup: "${VOLSYNC_GID:-568}"
     capacity: "${VOLSYNC_CAPACITY}"
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationsource_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
