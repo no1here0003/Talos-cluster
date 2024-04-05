@@ -50,8 +50,6 @@ spec:
     sources:
       - ingress
       - service
-    txtPrefix: "k8s."
-    txtOwnerId: "default"
     domainFilters:
       - "${SECRET_DOMAIN}"
       - "${SECRET_DOMAIN2}"
