@@ -39,7 +39,6 @@ spec:
     policy: sync
     sources:
       - ingress
-      - service
       - crd
     txtPrefix: "k8s."
     txtOwnerId: "default"
