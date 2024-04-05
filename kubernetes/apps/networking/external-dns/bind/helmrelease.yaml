@@ -44,6 +44,7 @@ spec:
             name: &secret external-dns-bind
             key: RNDC_KEY
     extraArgs:
+      - --rfc2136-insecure
       - --ingress-class=internal
     policy: sync
     sources:
