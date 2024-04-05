@@ -29,17 +29,15 @@ spec:
       - secretRef:
           name: &secret external-dns-pihole
     extraArgs:
-      - --registry=noop
       - --ingress-class=internal
     policy: upsert-only
+    registry: noop
     sources:
       - ingress
     domainFilters:
       - "${SECRET_DOMAIN}"
       - "${SECRET_DOMAIN2}"
       - "${SECRET_DOMAIN3}"
-    txtOwnerId: pihole
-    txtPrefix: k8s.
     serviceMonitor:
       enabled: true
     podAnnotations:
