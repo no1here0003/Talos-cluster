@@ -73,6 +73,7 @@ spec:
         className: "external"
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
         hosts:
           - host: &host "request.${SECRET_DOMAIN}"
             paths:
