@@ -75,7 +75,7 @@ spec:
 
     ingress:
       bazarr:
-        enabled: true
+        enabled: false
         className: "nginx"
         hosts:
           - host: &host "bazarr.${INTERNAL_DOMAIN}"

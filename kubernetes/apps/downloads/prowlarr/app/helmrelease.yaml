@@ -84,7 +84,7 @@ spec:
 
     ingress:
       prowlarr:
-        enabled: true
+        enabled: false
         className: "nginx"
         hosts:
           - host: &host "prowlarr.${INTERNAL_DOMAIN}"

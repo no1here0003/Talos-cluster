@@ -68,7 +68,7 @@ spec:
 
     ingress:
       tautulli:
-        enabled: true
+        enabled: false
         className: "nginx"
         hosts:
           - host: &host "tautulli.${INTERNAL_DOMAIN}"

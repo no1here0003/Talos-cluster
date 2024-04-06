@@ -73,7 +73,7 @@ spec:
 
     ingress:
       lidarr:
-        enabled: true
+        enabled: false
         className: "nginx"
         hosts:
           - host: &host lidarr.${INTERNAL_DOMAIN}

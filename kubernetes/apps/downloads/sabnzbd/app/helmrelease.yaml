@@ -74,7 +74,7 @@ spec:
 
     ingress:
       sabnzbd:
-        enabled: true
+        enabled: false
         className: "nginx"
         hosts:
           - host: &host "sabnzbd.${INTERNAL_DOMAIN}"

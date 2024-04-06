@@ -81,7 +81,7 @@ spec:
 
     ingress:
       sonarr:
-        enabled: true
+        enabled: false
         className: internal
         hosts:
           - host: &host "sonarr.${INTERNAL_DOMAIN}"

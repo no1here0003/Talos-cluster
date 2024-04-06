@@ -81,7 +81,7 @@ spec:
 
     ingress:
       radarr:
-        enabled: true
+        enabled: false
         className: "nginx"
         hosts:
           - host: &host "radarr.${INTERNAL_DOMAIN}"
