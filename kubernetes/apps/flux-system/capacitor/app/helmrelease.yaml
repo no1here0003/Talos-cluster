@@ -48,7 +48,7 @@ spec:
     ingress:
       capacitor:
         className: nginx
-        enabled: true
+        enabled: false
         hosts:
           - host: &host capacitor.${INTERNAL_DOMAIN}
             paths:
