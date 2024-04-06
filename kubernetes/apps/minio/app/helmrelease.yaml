@@ -54,7 +54,7 @@ spec:
               MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN},https://s3.${SECRET_DOMAIN}
               MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN}
               MINIO_PROMETHEUS_JOB_ID: minio
-              MINIO_PROMETHEUS_URL: https://prometheus.${SECRET_DOMAIN}
+              MINIO_PROMETHEUS_URL: https://prometheus.${INTERNAL_DOMAIN}
               MINIO_PROMETHEUS_AUTH_TYPE: public
               MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
               MINIO_UPDATE: "off"
@@ -113,8 +113,10 @@ spec:
         enabled: true
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns/is-public: "true"
+          kubernetes.io/tls-acme: "true"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
@@ -131,8 +133,10 @@ spec:
         enabled: true
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns/is-public: "true"
+          kubernetes.io/tls-acme: "true"
         hosts:
           - host: &s3Host s3.${SECRET_DOMAIN}
             paths:
