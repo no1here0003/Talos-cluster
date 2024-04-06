@@ -99,8 +99,7 @@ spec:
         className: "external"
         annotations:
           hajimari.io/icon: simple-icons:jellyfin
-          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN2}
-          external-dns/is-public: "true"
+          external-dns.alpha.kubernetes.io/target: secret.${SECRET_DOMAIN2}
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
           - host: *host

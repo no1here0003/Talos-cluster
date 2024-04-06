@@ -72,9 +72,8 @@ spec:
         enabled: true
         className: "external"
         annotations:
-          external-dns/is-public: "true"
           cert-manager.io/cluster-issuer: letsencrypt-production
-          external-dns.alpha.kubernetes.io/target: "${SECRET_DOMAIN}"
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hosts:
           - host: &host "request.${SECRET_DOMAIN}"
             paths:
