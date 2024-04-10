@@ -1,11 +1,36 @@
 ---
 originRequest:
   http2Origin: true
-  originServerName: external.${SECRET_DOMAIN}
 
 ingress:
   - hostname: "${SECRET_DOMAIN}"
     service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${SECRET_DOMAIN}
+      http2Origin: true
   - hostname: "*.${SECRET_DOMAIN}"
     service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${SECRET_DOMAIN}
+      http2Origin: true
+  - hostname: "${SECRET_DOMAIN2}"
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${SECRET_DOMAIN2}
+      http2Origin: true
+  - hostname: "*.${SECRET_DOMAIN2}"
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${SECRET_DOMAIN2}
+      http2Origin: true
+  - hostname: "${SECRET_DOMAIN3}"
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${SECRET_DOMAIN3}
+      http2Origin: true
+  - hostname: "*.${SECRET_DOMAIN3}"
+    service: https://nginx-external-controller.networking.svc.cluster.local:443
+    originRequest:
+      originServerName: external.${SECRET_DOMAIN3}
+      http2Origin: true
   - service: http_status:404
