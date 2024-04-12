@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ./../../../../templates/volsync
   - ./helmrelease.yaml
+  - ./ingress2.yaml
