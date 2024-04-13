@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-production
-    external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN2}
+    external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN2}
   labels:
     app.kubernetes.io/instance: overseerr2
     app.kubernetes.io/name: overseerr2
@@ -12,17 +12,17 @@ metadata:
 spec:
   ingressClassName: external
   rules:
-  - host: &host request.${SECRET_DOMAIN2}
-    http:
-      paths:
-      - backend:
-          service:
-            name: overseerr
-            port:
-              number: 5055
-        path: /
-        pathType: Prefix
+    - host: &host request.${SECRET_DOMAIN2}
+      http:
+        paths:
+          - backend:
+              service:
+                name: overseerr
+                port:
+                  number: 5055
+            path: /
+            pathType: Prefix
   tls:
-  - hosts:
-    - *host
-    secretName: overseer2.tls
+    - hosts:
+        - *host
+      secretName: overseerr2.tls
