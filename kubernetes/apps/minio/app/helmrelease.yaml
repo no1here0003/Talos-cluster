@@ -111,7 +111,7 @@ spec:
     ingress:
       minio:
         enabled: true
-        className: internal
+        className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
@@ -130,7 +130,7 @@ spec:
 
       s3:
         enabled: true
-        className: internal
+        className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
