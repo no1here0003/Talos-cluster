@@ -31,10 +31,10 @@ spec:
       namespace: minio
   values:
     manageCRDs: true
-    # image: &image
-    #   repository: ghcr.io/onedr0p/volsync
-    #   tag: 0.9.1
-    # restic:
-    #   <<: *image
+    image: &image
+      repository: ghcr.io/onedr0p/volsync
+      tag: 0.9.1
+    restic:
+      <<: *image
     metrics:
       disableAuth: true
