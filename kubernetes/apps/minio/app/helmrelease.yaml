@@ -134,6 +134,9 @@ spec:
         className: internal
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
+          nginx.ingress.kubernetes.io/configuration-snippet: |
+            more_set_headers "Host $host";
+            more_set_headers "X-Forwarded-For $remote_addr"
         hosts:
           - host: &s3Host s3.${SECRET_DOMAIN}
             paths:
