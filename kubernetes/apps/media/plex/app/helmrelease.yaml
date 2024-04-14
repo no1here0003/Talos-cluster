@@ -85,6 +85,15 @@ spec:
                   failureThreshold: 30
                   periodSeconds: 5
 
+        pod:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: node-role.kubernetes.io/control-plane
+                        operator: DoesNotExist
+
     service:
       plex:
         controller: plex
