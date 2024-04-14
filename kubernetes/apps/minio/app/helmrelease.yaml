@@ -111,11 +111,10 @@ spec:
     ingress:
       minio:
         enabled: true
-        className: external
+        className: internal
         annotations:
           external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
-          external-dns/is-public: "true"
         hosts:
           - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
