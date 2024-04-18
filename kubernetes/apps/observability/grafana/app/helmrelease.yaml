@@ -136,16 +136,14 @@ spec:
             uid: prometheus
             access: proxy
             url: http://thanos-query-frontend.observability.svc.cluster.local:9090
-            # url: http://vmselect-victoria-metrics.observability.svc.cluster.local:8481/select/0/prometheus
             jsonData:
-              prometheusType: Thanos # Prometheus for victoria-metrics
+              prometheusType: Thanos
             isDefault: true
           - name: Alertmanager
             type: alertmanager
             uid: alertmanager
             access: proxy
-            url: http://kube-prometheus-stack-alertmanager.observability.svc.cluster.local:9093
-            # url: http://vmalertmanager-victoria-metrics.observability.svc.cluster.local:9093
+            url: http://alertmanager-operated.observability.svc.cluster.local:9093
             jsonData:
               implementation: prometheus
     dashboards:
