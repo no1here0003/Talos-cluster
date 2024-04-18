@@ -311,7 +311,14 @@ spec:
     serviceMonitor:
       enabled: true
     ingress:
-      enabled: false
+      enabled: true
+      ingressClassName: internal
+      hosts:
+        - &host "grafana.${SECRET_DOMAIN}"
+      tls:
+        - hosts:
+            - *host
+          secretName: grafana.tls
     serviceAccount:
       create: true
       autoMount: true
