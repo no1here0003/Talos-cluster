@@ -6,3 +6,4 @@ namespace: dragonfly-operator-system
 resources:
   - ./externalsecrets.yaml
   - ./cluster.yaml
+  - ./podmonitor.yaml
