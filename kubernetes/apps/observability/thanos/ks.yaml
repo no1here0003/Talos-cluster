@@ -13,6 +13,7 @@ spec:
   dependsOn:
     - name: dragonfly-cluster
     - name: external-secrets-clusterstore
+    - name: minio
   path: ./kubernetes/apps/observability/thanos/app
   prune: true
   sourceRef:
