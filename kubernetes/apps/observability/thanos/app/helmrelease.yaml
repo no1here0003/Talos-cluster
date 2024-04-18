@@ -47,7 +47,7 @@ spec:
       valuesKey: AWS_SECRET_ACCESS_KEY
     - targetPath: objstoreConfig.value.config.region
       kind: Secret
-      name: thanos-secret
+      name: thanos-bucket
       valuesKey: S3_REGION
   values:
     objstoreConfig:
