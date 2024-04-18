@@ -54,7 +54,7 @@ spec:
       value:
         type: s3
         config:
-          insecure: false
+          insecure: true
           trace:
             enable: true
     additionalEndpoints:
