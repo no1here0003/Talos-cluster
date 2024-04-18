@@ -37,9 +37,14 @@ spec:
     alertmanager:
       ingress:
         enabled: true
-        pathType: Prefix
         ingressClassName: internal
-        hosts: ["alertmanager.${SECRET_DOMAIN}"]
+        pathType: Prefix
+        hosts:
+          - &promHost "alertmanager.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+            - *promHost
+            secretName: alertmanager.tls
       alertmanagerSpec:
         replicas: 3
         useExistingSecret: true
@@ -93,7 +98,12 @@ spec:
         enabled: true
         ingressClassName: internal
         pathType: Prefix
-        hosts: ["prometheus.${SECRET_DOMAIN}"]
+        hosts:
+          - &promHost "prometheus.${SECRET_DOMAIN}"
+        tls:
+          - hosts:
+            - *promHost
+            secretName: prometheus.tls
       thanosService:
         enabled: true
       thanosServiceMonitor:
