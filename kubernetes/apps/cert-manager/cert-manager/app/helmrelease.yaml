@@ -37,6 +37,7 @@ spec:
       - --dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53
       - --dns01-recursive-nameservers-only
       - --enable-certificate-owner-ref
+      - --feature-gates=ExperimentalGatewayAPISupport=true
     replicaCount: 1
     podDnsPolicy: "None"
     podDnsConfig:
