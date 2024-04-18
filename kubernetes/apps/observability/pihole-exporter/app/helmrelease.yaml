@@ -48,8 +48,6 @@ spec:
       exporter:
         controller: exporter
         ports:
-          http:
-            enabled: false
           metrics:
             enabled: true
             protocol: TCP
