@@ -99,9 +99,6 @@ spec:
       thanosServiceMonitor:
         enabled: true
       prometheusSpec:
-        podMetadata:
-          annotations:
-            secret.reloader.stakater.com/reload: &secret thanos-bucket
         replicas: 3
         replicaExternalLabelName: __replica__
         scrapeInterval: 1m # Must match interval in Grafana Helm chart
