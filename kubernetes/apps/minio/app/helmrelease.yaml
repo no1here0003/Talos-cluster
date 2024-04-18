@@ -111,9 +111,11 @@ spec:
     ingress:
       minio:
         enabled: true
-        className: internal
+        className: external
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns.alpha.kubernetes.io/target: ${SECRET_DOMAIN}
+          external-dns/is-public: "true"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             more_set_headers "Host $host";
             more_set_headers "X-Forwarded-For $remote_addr"
