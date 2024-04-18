@@ -45,18 +45,18 @@ spec:
       kind: Secret
       name: thanos-bucket
       valuesKey: AWS_SECRET_ACCESS_KEY
-    - targetPath: objstoreConfig.value.config.region
-      kind: Secret
-      name: thanos-bucket
-      valuesKey: S3_REGION
+    # - targetPath: objstoreConfig.value.config.region
+    #   kind: Secret
+    #   name: thanos-bucket
+    #   valuesKey: S3_REGION
   values:
     objstoreConfig:
       value:
         type: s3
         config:
           insecure: false
-        trace:
-          enable: true
+          trace:
+            enable: true
     additionalEndpoints:
       - dnssrv+_grpc._tcp.kube-prometheus-stack-thanos-discovery.observability.svc.cluster.local
     additionalReplicaLabels: ["__replica__"]
