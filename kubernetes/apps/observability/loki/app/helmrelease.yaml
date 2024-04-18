@@ -32,7 +32,7 @@ spec:
       namespace: rook-ceph
   valuesFrom:
     - targetPath: loki.storage.bucketNames.chunks
-      kind: ConfigMap
+      kind: Secret
       name: &cephBucket loki-bucket
       valuesKey: BUCKET_NAME
     - targetPath: loki.storage.s3.endpoint
