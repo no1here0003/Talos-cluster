@@ -26,7 +26,7 @@ spec:
     keepHistory: false
   values:
     controllers:
-      main:
+      exporter:
         containers:
           main:
             image:
@@ -45,7 +45,8 @@ spec:
               limits:
                 memory: 256M
     service:
-      main:
+      exporter:
+        controller: exporter
         ports:
           http:
             enabled: false
@@ -54,11 +55,12 @@ spec:
             protocol: TCP
             port: 9617
     serviceMonitor:
-      main:
+      exporter:
+        serviceName: exporter
         enabled: true
         endpoints:
-        - port: metrics
-          scheme: http
-          path: /metrics
-          interval: 30m
-          scrapeTimeout: 1m
+          - port: metrics
+            scheme: http
+            path: /metrics
+            interval: 30m
+            scrapeTimeout: 1m
