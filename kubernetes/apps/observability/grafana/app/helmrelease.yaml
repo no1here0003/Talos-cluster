@@ -4,7 +4,7 @@ kind: HelmRelease
 metadata:
   name: grafana
 spec:
-  interval: 5m
+  interval: 30m
   chart:
     spec:
       # renovate: registryUrl=https://grafana.github.io/helm-charts
@@ -14,7 +14,19 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-      interval: 5m
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+    - name: kube-prometheus-stack
+      namespace: observability
+    - name: loki
+      namespace: observability
   values:
     extraInitContainers:
       - name: 01-init-db
