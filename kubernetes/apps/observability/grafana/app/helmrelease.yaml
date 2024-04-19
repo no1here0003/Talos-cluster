@@ -129,6 +129,7 @@ spec:
         apiVersion: 1
         deleteDatasources:
           - { name: Alertmanager, orgId: 1 }
+          - { name: Loki, orgId: 1 }
           - { name: Prometheus, orgId: 1 }
 
         datasources:
@@ -144,7 +145,7 @@ spec:
           - access: proxy
             name: Loki
             type: loki
-            url: http://loki-gateway.monitoring.svc.cluster.local:80
+            url: http://loki-gateway.observability.svc.cluster.local:80
 
           - name: Alertmanager
             type: alertmanager
