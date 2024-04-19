@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: tautulli/tautulli
-              tag: 2.13.4
+              tag: v2.13.4
 
             env:
               TZ: "America/New_York"

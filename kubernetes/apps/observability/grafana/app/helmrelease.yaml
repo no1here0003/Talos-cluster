@@ -190,10 +190,8 @@ spec:
           gnetId: 1860
           revision: 36
           datasource: Prometheus
-        redis:
-          # renovate: depName="Redis Dashboard for Prometheus Redis Exporter 1.x"
-          gnetId: 763
-          revision: 6
+        dragonfly:
+          url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
           datasource: Prometheus
         cloudnative-pg:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/observability/grafana-dashboard.json
@@ -293,31 +291,31 @@ spec:
 
       thanos:
         thanos-bucket-replicate:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/bucket-replicate.json
           datasource: Prometheus
         thanos-compact:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/compact.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/compact.json
           datasource: Prometheus
         thanos-overview:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/overview.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/overview.json
           datasource: Prometheus
         thanos-query:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/query.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query.json
           datasource: Prometheus
         thanos-query-frontend:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/query-frontend.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/query-frontend.json
           datasource: Prometheus
         thanos-receieve:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/receive.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/receive.json
           datasource: Prometheus
         thanos-rule:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/rule.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/rule.json
           datasource: Prometheus
         thanos-sidecar:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/sidecar.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/sidecar.json
           datasource: Prometheus
         thanos-store:
-          url: https://raw.githubusercontent.com/observability-mixins/website/master/assets/thanos/dashboards/store.json
+          url: https://raw.githubusercontent.com/monitoring-mixins/website/master/assets/thanos/dashboards/store.json
           datasource: Prometheus
 
     sidecar:
