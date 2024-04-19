@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Pod
 metadata:
@@ -9,8 +10,8 @@ spec:
       envFrom: &envFrom
         - secretRef:
             name: radarr
-      command: [ "/bin/bash", "-c", "--" ]
-      args: [ "while true; do sleep 30; done;" ]
+      command: ["/bin/bash", "-c", "--"]
+      args: ["while true; do sleep 30; done;"]
       volumeMounts:
         - mountPath: /config
           name: config
