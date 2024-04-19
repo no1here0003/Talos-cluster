@@ -172,7 +172,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/13502
         minio:
           gnetId: 13502
-          revision: 10
+          revision: 26
           datasource: Prometheus
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
@@ -190,6 +190,12 @@ spec:
           gnetId: 1860
           revision: 36
           datasource: Prometheus
+        spegel:
+          # renovate: depName="Spegel"
+          gnetId: 18089
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         dragonfly:
           url: https://raw.githubusercontent.com/dragonflydb/dragonfly/main/tools/local/monitoring/grafana/provisioning/dashboards/dashboard.json
           datasource: Prometheus
@@ -226,9 +232,6 @@ spec:
           datasource: Prometheus
         flux-control-plane:
           url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
-          datasource: Prometheus
-        flux-logs:
-          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
           datasource: Prometheus
 
       kubernetes:
