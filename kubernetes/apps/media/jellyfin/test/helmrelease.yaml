@@ -57,7 +57,7 @@ spec:
           jellyt:
             image:
               repository: jellyfin/jellyfin
-              tag: "2024031805"
+              tag: "2024041505"
             env:
               DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
               JELLYFIN_FFmpeg__probesize: 50000000

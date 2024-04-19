@@ -84,10 +84,10 @@ spec:
 
     ingress:
       prowlarr:
-        enabled: false
-        className: "nginx"
+        enabled: true
+        className: internal
         hosts:
-          - host: &host "prowlarr.${INTERNAL_DOMAIN}"
+          - host: &host "prowlarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
