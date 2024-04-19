@@ -280,7 +280,6 @@ spec:
 
       pihole:
         pihole:
-          # renovate: depName="Omada Exporter: Client Insights - Prometheus"
           gnetId: 10176
           revision: 3
           datasource: Prometheus
@@ -339,13 +338,6 @@ spec:
       enabled: true
     ingress:
       enabled: false
-      ingressClassName: internal
-      hosts:
-        - &host "grafana.${SECRET_DOMAIN}"
-      tls:
-        - hosts:
-            - *host
-          secretName: grafana.tls
     serviceAccount:
       create: true
       autoMount: true
