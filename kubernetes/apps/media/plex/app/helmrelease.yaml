@@ -65,6 +65,24 @@ spec:
               ADVERTISE_IP: "http://${PLEX_LB}:32410/"
               HOSTNAME: "plex-cluster"
               PLEX_CLAIM: ${PLEX_CLAIM}
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /identity
+                    port: 32400
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 10
             resources:
               requests:
                 gpu.intel.com/i915: 1
@@ -73,17 +91,6 @@ spec:
               limits:
                 gpu.intel.com/i915: 1
                 memory: 64G
-
-            probes:
-              liveness:
-                enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
 
         pod:
           affinity:
