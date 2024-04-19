@@ -259,5 +259,3 @@ controlPlane:
             enabled: true
             allowedRoles: ["os:admin"]
             allowedKubernetesNamespaces: ["system-upgrade"]
-
-

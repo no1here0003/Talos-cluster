@@ -96,7 +96,7 @@ spec:
               limits:
                 cpu: 500m
                 memory: 128Mi
-                
+
         annotations:
           reloader.stakater.com/auto: "true"
         pod:

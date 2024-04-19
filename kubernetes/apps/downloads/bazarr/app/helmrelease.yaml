@@ -17,8 +17,8 @@ spec:
         namespace: flux-system
       interval: 5m
   dependsOn:
-  - name: cloudnative-pg
-    namespace: database
+    - name: cloudnative-pg
+      namespace: database
   install:
     remediation:
       retries: 5

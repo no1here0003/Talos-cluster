@@ -43,7 +43,7 @@ spec:
           - &promHost "alertmanager.${SECRET_DOMAIN}"
         tls:
           - hosts:
-            - *promHost
+              - *promHost
             secretName: alertmanager.tls
       alertmanagerSpec:
         replicas: 3
@@ -102,7 +102,7 @@ spec:
           - &promHost "prometheus.${SECRET_DOMAIN}"
         tls:
           - hosts:
-            - *promHost
+              - *promHost
             secretName: prometheus.tls
       thanosService:
         enabled: true

@@ -90,7 +90,7 @@ spec:
           - &host thanos.${SECRET_DOMAIN}
         tls:
           - hosts:
-            - *host
+              - *host
             secretName: thanos.tls
       podAnnotations: &podAnnotations
         configmap.reloader.stakater.com/reload: *configMap
