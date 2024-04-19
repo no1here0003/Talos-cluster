@@ -27,13 +27,6 @@ spec:
       namespace: volsync-system
   values:
 
-    defaultPodOptions:
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        fsGroup: 568
-        fsGroupChangePolicy: "OnRootMismatch"
-
     controllers:
       tautulli:
         annotations:
@@ -42,45 +35,52 @@ spec:
         containers:
           app:
             image:
-              repository: tautulli/tautulli
-              tag: v2.13.4
-
+              repository: ghcr.io/tautulli/tautulli
+              tag: v2.13.4@sha256:fb5e22c7a4d9e770703a30d145f355786fecb28dfca6df56c5073c457f3c8a8e
             env:
-              TZ: "America/New_York"
+              TZ: America/New_York
+            command: ["/usr/local/bin/python", "Tautulli.py"]
+            args: [
+              "--config", "/config/config.ini",
+              "--datadir", "/config",
+              "--port", "80"
+            ]
 
             probes:
-              liveness:
+              liveness: &probes
                 enabled: true
-              readiness:
-                enabled: true
-              startup:
-                enabled: true
+                custom: true
                 spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
-
+                  httpGet:
+                    path: /status
+                    port: &port 80
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext: &securityContext
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
+        seccompProfile: { type: RuntimeDefault }
     service:
       tautulli:
         controller: tautulli
         ports:
           http:
-            port: 8181
+            port: *port
 
     ingress:
       tautulli:
         enabled: false
-        className: "nginx"
-        hosts:
-          - host: &host "tautulli.${INTERNAL_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: tautulli
-                  port: http
-        tls:
-          - hosts:
-              - *host
-            secretName: tautulli-tls
 
     persistence:
       config:
