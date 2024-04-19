@@ -78,10 +78,6 @@ spec:
           http:
             port: *port
 
-    ingress:
-      tautulli:
-        enabled: false
-
     persistence:
       config:
         enabled: true
