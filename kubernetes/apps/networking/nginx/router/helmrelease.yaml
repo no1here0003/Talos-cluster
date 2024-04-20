@@ -41,8 +41,8 @@ spec:
       }
     ingress:
       enabled: true
+      ingressClassName: internal
       annotations:
-        kubernetes.io/ingress.class: internal
         cert-manager.io/cluster-issuer: letsencrypt-production
         ingress.kubernetes.io/force-ssl-redirect: "true"
         hajimari.io/enable: "true"
