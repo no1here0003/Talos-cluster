@@ -7,3 +7,4 @@ resources:
   - ./external-dns/ks.yaml
   - ./gateway-api/ks.yaml
   - ./nginx/ks.yaml
+  - ./opnsense/ks.yaml
