@@ -1,0 +1,56 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: nginx-proxy-router
+  namespace: nginx
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://charts.bitnami.com/bitnami
+      chart: nginx
+      version: 16.0.4
+      sourceRef:
+        kind: HelmRepository
+        name: bitnami-charts
+        namespace: flux-system
+      interval: 15m
+  values:
+    service:
+      type: ClusterIP
+    serverBlock: |-
+      server {
+        listen       8080;
+        server_name  router.${SECRET_DOMAIN2};
+
+        location / {
+          proxy_set_header Host $host;
+          proxy_set_header X-Real-IP $remote_addr;
+          proxy_request_buffering off;
+          proxy_ssl_verify off;
+
+          # resolver 10.13.2.20;
+          set $backend "https://192.168.1.1";
+          proxy_pass $backend;
+        }
+
+        location ~ /\.ht {
+          deny  all;
+        }
+      }
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: internal
+        cert-manager.io/cluster-issuer: letsencrypt-production
+        ingress.kubernetes.io/force-ssl-redirect: "true"
+        hajimari.io/enable: "true"
+        hajimari.io/appName: "Router"
+        hajimari.io/info: "Opnsense router dashboard"
+        hajimari.io/icon: "router-network"
+      hostname: "router.${SECRET_DOMAIN2}"
+      extraTls:
+        - hosts:
+            - router.${SECRET_DOMAIN2}
+          secretName: router.tls
