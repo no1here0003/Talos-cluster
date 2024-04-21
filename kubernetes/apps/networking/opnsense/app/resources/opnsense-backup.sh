@@ -2,7 +2,7 @@
 
 set -o nounset
 set -o errexit
-chmod 755 /etc/resolve.conf
+chmod 755 /etc/resolv.conf
 echo 'nameserver 192.168.1.1' > /etc/resolv.conf
 config_filename="$(date "+%Y%m%d-%H%M%S").xml"
 
