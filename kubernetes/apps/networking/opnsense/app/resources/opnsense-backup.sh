@@ -2,6 +2,7 @@
 
 set -o nounset
 set -o errexit
+set -xe
 config_filename="$(date "+%Y%m%d-%H%M%S").xml"
 
 http_host=${S3_URL#*//}
