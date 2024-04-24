@@ -31,6 +31,13 @@ spec:
       namespace: minio
   values:
     manageCRDs: true
+    resources:
+      limits:
+        cpu:
+        memory: 4Gi
+      requests:
+        cpu: 15m
+        memory: 64Mi
     # image: &image
     #   repository: ghcr.io/onedr0p/volsync
     #   tag: 0.9.1
