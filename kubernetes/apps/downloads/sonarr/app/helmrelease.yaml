@@ -56,10 +56,12 @@ spec:
               repository: ghcr.io/onedr0p/sonarr-develop
               tag: 4.0.4.1572@sha256:6af1e32cec72e0f23f86247e7426ba3e53f9d724a5cd215708ed713cb4bbfbcd
             env:
+              PUSHOVER_DEBUG: "false"
               TZ: "${TIMEZONE}"
               SONARR__INSTANCE_NAME: Sonarr
               SONARR__PORT: &port 8989
               SONARR__LOG_LEVEL: info
+              SONARR__THEME: dark
             envFrom: *envFrom
             probes:
               liveness:
@@ -98,6 +100,15 @@ spec:
     persistence:
       config:
         existingClaim: *app
+
+      pushover-notify:
+        type: configMap
+        name: sonarr-configmap
+        defaultMode: 0775
+        globalMounts:
+          - path: /scripts/pushover-notify.sh
+            subPath: pushover-notify.sh
+            readOnly: true
 
       media:
         type: nfs
