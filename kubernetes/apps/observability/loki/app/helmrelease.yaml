@@ -31,13 +31,9 @@ spec:
     - name: minio
       namespace: minio
   valuesFrom:
-    - targetPath: loki.storage.bucketNames.chunks
-      kind: Secret
-      name: &cephBucket loki-bucket
-      valuesKey: BUCKET_NAME
     - targetPath: loki.storage.s3.endpoint
       kind: Secret
-      name: *cephBucket
+      name: &cephBucket loki-bucket
       valuesKey: BUCKET_HOST
     - targetPath: loki.storage.s3.accessKeyId
       kind: Secret
@@ -59,6 +55,10 @@ spec:
       ingester:
         chunk_encoding: snappy
       storage:
+        bucketNames:
+          chunks: loki-chunks
+          ruler: loki-ruler
+          admin: loki-admin
         type: s3
         s3:
           s3ForcePathStyle: true
