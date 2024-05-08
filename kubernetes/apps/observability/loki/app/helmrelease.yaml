@@ -49,7 +49,7 @@ spec:
       valuesKey: AWS_SECRET_ACCESS_KEY
     - kind: Secret
       name: *cephBucket
-      valuesKey: BUCKET_REGION
+      valuesKey: S3_REGION
       targetPath: loki.storage.s3.region
   values:
     deploymentMode: SimpleScalable
