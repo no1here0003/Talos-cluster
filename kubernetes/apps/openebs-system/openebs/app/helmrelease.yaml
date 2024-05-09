@@ -32,7 +32,7 @@ spec:
           registry: quay.io/
           repository: openebs/provisioner-localpv
       hostpathClass:
-        name: local-hostpath
+        name: openebs-hostpath
     openebs-crds:
       csi:
         volumeSnapshots:
