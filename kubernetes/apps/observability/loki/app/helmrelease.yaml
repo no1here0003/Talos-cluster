@@ -56,9 +56,7 @@ spec:
         chunk_encoding: snappy
       storage:
         bucketNames:
-          chunks: loki-chunks
-          ruler: loki-ruler
-          admin: loki-admin
+          chunks: loki
         type: s3
         s3:
           s3ForcePathStyle: true
