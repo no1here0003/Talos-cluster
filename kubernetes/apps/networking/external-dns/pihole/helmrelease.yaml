@@ -40,6 +40,7 @@ spec:
     registry: noop
     sources:
       - ingress
+      - service
     domainFilters:
       - "${SECRET_DOMAIN}"
       - "${SECRET_DOMAIN2}"
