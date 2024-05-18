@@ -22,7 +22,7 @@ nodes:
   - hostname: "nuc11i7-1"
     ipAddress: "192.168.10.2"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -39,7 +39,7 @@ nodes:
   - hostname: "nuc10i7-1"
     ipAddress: "192.168.10.3"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -56,7 +56,7 @@ nodes:
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.4"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -73,7 +73,7 @@ nodes:
   - hostname: "nuc11i7-2"
     ipAddress: "192.168.10.5"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -88,7 +88,7 @@ nodes:
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.6"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -103,7 +103,7 @@ nodes:
   - hostname: "nuc13i7-2"
     ipAddress: "192.168.10.7"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -118,7 +118,7 @@ nodes:
   - hostname: "nuc13i7-3"
     ipAddress: "192.168.10.8"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -133,7 +133,7 @@ nodes:
   - hostname: "nuc13i7-4"
     ipAddress: "192.168.10.9"
     installDisk: "/dev/sda"
-    talosImageURL: factory.talos.dev/installer/7e2631acb9b3b938b2034dc2dddb7f29c661a7717b505d85d1bc51572e99a547
+    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
