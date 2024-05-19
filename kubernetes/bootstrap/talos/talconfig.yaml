@@ -1,16 +1,16 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
 ---
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-talosVersion: v1.7.0
+talosVersion: v1.7.2
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.30.0
+kubernetesVersion: v1.30.1
 
 clusterName: &cluster talos
 endpoint: https://192.168.10.15:6443
 clusterPodNets:
-  - "10.69.0.0/16"
+  - "10.12.0.0/16"
 clusterSvcNets:
-  - "10.96.0.0/16"
+  - "10.13.0.0/16"
 additionalApiServerCertSans: &sans
   - "192.168.10.15"
   - 127.0.0.1 # KubePrism
@@ -21,7 +21,7 @@ cniConfig:
 nodes:
   - hostname: "nuc11i7-1"
     ipAddress: "192.168.10.2"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: true
     networkInterfaces:
@@ -38,7 +38,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc10i7-1"
     ipAddress: "192.168.10.3"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: true
     networkInterfaces:
@@ -55,7 +55,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.4"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: true
     networkInterfaces:
@@ -72,7 +72,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc11i7-2"
     ipAddress: "192.168.10.5"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
@@ -87,7 +87,7 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.6"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
@@ -102,7 +102,7 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-2"
     ipAddress: "192.168.10.7"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
@@ -117,7 +117,7 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-3"
     ipAddress: "192.168.10.8"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
@@ -132,7 +132,7 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-4"
     ipAddress: "192.168.10.9"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
     controlPlane: false
     networkInterfaces:
@@ -146,84 +146,148 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "192.168.10.1"
 
-patches:
-  # Configure containerd
-  - |-
-    machine:
-      files:
-        - op: create
-          path: /etc/cri/conf.d/20-customization.part
-          content: |-
-            [plugins."io.containerd.grpc.v1.cri"]
-              enable_unprivileged_ports = true
-              enable_unprivileged_icmp = true
-            [plugins."io.containerd.grpc.v1.cri".containerd]
-              discard_unpacked_layers = false
-            [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
-              discard_unpacked_layers = false
-
-  # Disable search domain everywhere
-  - |-
-    machine:
-      network:
-        disableSearchDomain: true
-
-  # Enable cluster discovery
-  - |-
-    cluster:
-      discovery:
-        registries:
-          kubernetes:
-            disabled: false
-          service:
-            disabled: false
-
-  # Configure kubelet
-  - |-
-    machine:
-      kubelet:
-        extraArgs:
-          rotate-server-certificates: true
-        nodeIP:
-          validSubnets: ["192.168.10.0/24"]
-
-  # Force nameserver
-  - |-
-    machine:
-      network:
-        nameservers:
-
-  # Configure NTP
-  - |-
-    machine:
-      time:
-        disabled: false
-        servers: ["time.cloudflare.com"]
-
-  # Custom sysctl settings
-  - |-
-    machine:
-      sysctls:
-        fs.inotify.max_queued_events: "65536"
-        fs.inotify.max_user_watches: "524288"
-        fs.inotify.max_user_instances: "8192"
-        net.core.rmem_max: "2500000"
-        net.core.wmem_max: "2500000"
-
-  # Mount openebs-hostpath in kubelet
-  - |-
-    machine:
-      kubelet:
-        extraMounts:
-          - destination: /var/openebs/local
-            type: bind
-            source: /var/openebs/local
-            options: ["bind", "rshared", "rw"]
-
-
-
 controlPlane:
+  nodeLabels:
+    topology.kubernetes.io/region: *cluster
+    topology.kubernetes.io/zone: plane
   patches:
+    # Configure containerd
+    - &containerdPatch |-
+      machine:
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |-
+              [plugins."io.containerd.grpc.v1.cri"]
+                enable_unprivileged_ports = true
+                enable_unprivileged_icmp = true
+              [plugins."io.containerd.grpc.v1.cri".containerd]
+                discard_unpacked_layers = false
+              [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc]
+                discard_unpacked_layers = false
+
+    # Enable KubePrism
+    - &kubePrismPatch |-
+      machine:
+        features:
+          kubePrism:
+            enabled: true
+            port: 7445
+
+    # Disable search domain everywhere
+    - &disableSearchDomainPatch |-
+      machine:
+        network:
+          disableSearchDomain: true
+
+    # Enable cluster discovery
+    - &discoveryPatch |-
+      cluster:
+        discovery:
+          registries:
+            kubernetes:
+              disabled: false
+            service:
+              disabled: false
+
+    # Configure kubelet
+    - &kubeletPatch |-
+      machine:
+        kubelet:
+          extraArgs:
+            rotate-server-certificates: true
+          nodeIP:
+            validSubnets: ["192.168.10.0/24"]
+
+    # Enable logging
+    - &loggingPatch |-
+      machine:
+        logging:
+          destinations:
+            - endpoint: udp://vector.kubecloud.org:6002
+              format: json_lines
+
+    # Force nameserver
+    - &nameServerPatch |-
+      machine:
+        network:
+          nameservers:
+
+    # Configure NTP
+    - &ntpPatch |-
+      machine:
+        time:
+          disabled: false
+          servers: ["time.cloudflare.com"]
+
+    # Configure NFS mount options
+    - &nfsPatch |-
+      machine:
+        files:
+          - op: overwrite
+            path: /etc/nfsmount.conf
+            permissions: 0o644
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.1
+              hard=True
+              noatime=True
+              nodiratime=True
+              rsize=131072
+              wsize=131072
+              nconnect=8
+
+    # Custom sysctl settings
+    - &sysctlPatch |-
+      machine:
+        sysctls:
+          fs.inotify.max_user_watches: 1048576
+          fs.inotify.max_user_instances: 8192
+          kernel.randomize_va_space: 0
+          net.core.netdev_max_backlog: 30000
+          net.core.rmem_max: 67108864
+          net.core.wmem_max: 67108864
+          net.ipv4.tcp_rmem: 4096 87380 33554432
+          net.ipv4.tcp_wmem: 4096 65536 33554432
+          net.ipv4.tcp_tw_reuse: 1
+          net.ipv4.tcp_window_scaling: 1
+
+    # Mount openebs-hostpath in kubelet
+    - &openebsPatch |-
+      machine:
+        kubelet:
+          extraMounts:
+            - destination: /var/openebs/local
+              type: bind
+              source: /var/openebs/local
+              options: ["bind", "rshared", "rw"]
+
+    # Various udev rules
+    - &udevPatch |-
+      machine:
+        udev:
+          rules:
+            # Thunderbolt
+            - ACTION=="add", SUBSYSTEM=="thunderbolt", ATTR{authorized}=="0", ATTR{authorized}="1"
+            # Intel GPU
+            - SUBSYSTEM=="drm", KERNEL=="renderD*", GROUP="44", MODE="0660"
+            # Phoscon ConBee II The Universal Zigbee USB Gateway
+            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1cf1", ATTRS{idProduct}=="0030", GROUP="20", MODE="0660"
+            # Google Coral USB Accelerator
+            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="1a6e", ATTRS{idProduct}=="089a", GROUP="20", MODE="0660"
+            - SUBSYSTEMS=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="9302", GROUP="20", MODE="0660"
+
+    # Custom Talos installer patch
+    - &talosPatch |-
+      machine:
+        install:
+          extraKernelArgs:
+            - mitigations=off
+            - module_blacklist=tg3
+            - net.ifnames=0
+            - talos.logging.kernel=udp://vector.kubecloud.org:6001/
+          legacyBIOSSupport: true
+
     # Cluster configuration
     - |-
       cluster:
@@ -259,3 +323,21 @@ controlPlane:
             enabled: true
             allowedRoles: ["os:admin"]
             allowedKubernetesNamespaces: ["system-upgrade"]
+
+worker:
+  nodeLabels:
+    topology.kubernetes.io/region: *cluster
+    topology.kubernetes.io/zone: w
+  patches:
+    - *containerdPatch
+    - *disableSearchDomainPatch
+    - *discoveryPatch
+    - *kubeletPatch
+    - *kubePrismPatch
+    - *loggingPatch
+    - *nameServerPatch
+    - *nfsPatch
+    - *ntpPatch
+    - *sysctlPatch
+    - *talosPatch
+    - *udevPatch
