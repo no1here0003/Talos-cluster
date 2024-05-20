@@ -57,7 +57,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.4"
-    installDisk: "/dev/sdb"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: true
     networkInterfaces:
