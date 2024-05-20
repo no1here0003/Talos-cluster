@@ -26,7 +26,7 @@ nodes:
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:12:*
+          hardwareAddr: 00:30:93:*
           driver: atlantic
         dhcp: false
         addresses:
@@ -44,7 +44,7 @@ nodes:
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:12:*
+          hardwareAddr: 00:30:93:*
           driver: atlantic
         dhcp: false
         addresses:
@@ -216,7 +216,7 @@ controlPlane:
               format: json_lines
 
     # Force nameserver
-    - &nameServerPatch |-
+    - &nameserverPatch |-
       machine:
         network:
           nameservers:
@@ -293,7 +293,7 @@ controlPlane:
             - mitigations=off
             - module_blacklist=tg3
             - net.ifnames=0
-            - talos.logging.kernel=udp://vector.${PUBLIC_DOMAIN}:6001/
+            - talos.logging.kernel=udp://vector.kubecloud.org:6001/
           legacyBIOSSupport: true
 
     # Cluster configuration
@@ -336,7 +336,7 @@ worker:
     topology.kubernetes.io/region: *cluster
     topology.kubernetes.io/zone: w
   patches:
-    - *containerdPatch
+    - *ContainerdPatch
     - *disableSearchDomainPatch
     - *discoveryPatch
     - *kubeletPatch
@@ -344,9 +344,7 @@ worker:
     - *loggingPatch
     - *nameserverPatch
     - *nfsPatch
-    - *ntpPatch
-    - *staticHostEntriesPatch
+    - *timeServerPatch
     - *sysctlPatch
-    - *sysfsPatch
     - *talosPatch
     - *udevPatch
