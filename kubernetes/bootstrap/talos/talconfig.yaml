@@ -22,11 +22,12 @@ nodes:
   - hostname: "nuc11i7-1"
     ipAddress: "192.168.10.2"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:12:16:cf"
+          hardwareAddr: 00:30:93:12:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.2/24"
@@ -39,11 +40,12 @@ nodes:
   - hostname: "nuc10i7-1"
     ipAddress: "192.168.10.3"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:12:16:7a"
+          hardwareAddr: 00:30:93:12:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.3/24"
@@ -56,11 +58,12 @@ nodes:
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.4"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:12:17:95"
+          hardwareAddr: 00:30:93:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.4/24"
@@ -73,11 +76,12 @@ nodes:
   - hostname: "nuc11i7-2"
     ipAddress: "192.168.10.5"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:12:1b:aa"
+          hardwareAddr: 00:30:93:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.5/24"
@@ -88,11 +92,12 @@ nodes:
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.6"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:12:38:ea"
+          hardwareAddr: 00:30:93:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.6/24"
@@ -103,11 +108,12 @@ nodes:
   - hostname: "nuc13i7-2"
     ipAddress: "192.168.10.7"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:10:59:dd"
+          hardwareAddr: 00:30:93:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.7/24"
@@ -118,11 +124,12 @@ nodes:
   - hostname: "nuc13i7-3"
     ipAddress: "192.168.10.8"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:10:5c:a2"
+          hardwareAddr: 00:30:93:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.8/24"
@@ -133,11 +140,12 @@ nodes:
   - hostname: "nuc13i7-4"
     ipAddress: "192.168.10.9"
     installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/5bb18ff260ffde11490f310b603f1185280ab07f01ecd9db36bdc867ab28921f
+    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: "00:30:93:12:1a:b0"
+          hardwareAddr: 00:30:93:*
+          driver: atlantic
         dhcp: false
         addresses:
           - "192.168.10.9/24"
@@ -152,7 +160,7 @@ controlPlane:
     topology.kubernetes.io/zone: plane
   patches:
     # Configure containerd
-    - &containerdPatch |-
+    - &ContainerdPatch |-
       machine:
         files:
           - op: create
@@ -214,7 +222,7 @@ controlPlane:
           nameservers:
 
     # Configure NTP
-    - &ntpPatch |-
+    - &timeServerPatch |-
       machine:
         time:
           disabled: false
@@ -285,13 +293,12 @@ controlPlane:
             - mitigations=off
             - module_blacklist=tg3
             - net.ifnames=0
-            - talos.logging.kernel=udp://vector.kubecloud.org:6001/
+            - talos.logging.kernel=udp://vector.${PUBLIC_DOMAIN}:6001/
           legacyBIOSSupport: true
 
     # Cluster configuration
     - |-
       cluster:
-        allowSchedulingOnControlPlanes: true
         controllerManager:
           extraArgs:
             bind-address: 0.0.0.0
@@ -335,9 +342,11 @@ worker:
     - *kubeletPatch
     - *kubePrismPatch
     - *loggingPatch
-    - *nameServerPatch
+    - *nameserverPatch
     - *nfsPatch
     - *ntpPatch
+    - *staticHostEntriesPatch
     - *sysctlPatch
+    - *sysfsPatch
     - *talosPatch
     - *udevPatch
