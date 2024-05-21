@@ -19,26 +19,8 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "nuc11i7-1"
-    ipAddress: "192.168.10.2"
-    installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:*
-          driver: atlantic
-        dhcp: false
-        addresses:
-          - "192.168.10.2/24"
-        mtu: 1500
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "192.168.10.1"
-        vip:
-          ip: "192.168.10.15"
   - hostname: "nuc10i7-1"
-    ipAddress: "192.168.10.3"
+    ipAddress: "192.168.10.151"
     installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
     controlPlane: true
@@ -48,7 +30,7 @@ nodes:
           driver: atlantic
         dhcp: false
         addresses:
-          - "192.168.10.3/24"
+          - "192.168.10.151/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -73,27 +55,11 @@ nodes:
             gateway: "192.168.10.1"
         vip:
           ip: "192.168.10.15"
-  - hostname: "nuc11i7-2"
-    ipAddress: "192.168.10.5"
-    installDisk: "/dev/sdb"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
-    controlPlane: false
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:*
-          driver: atlantic
-        dhcp: false
-        addresses:
-          - "192.168.10.5/24"
-        mtu: 1500
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "192.168.10.1"
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.6"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
-    controlPlane: false
+    controlPlane: true
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:*
