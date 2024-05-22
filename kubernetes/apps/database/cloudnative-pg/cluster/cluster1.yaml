@@ -10,7 +10,7 @@ spec:
   primaryUpdateStrategy: unsupervised
   storage:
     size: 50Gi
-    storageClass: ceph-block
+    storageClass: openebs-hostpath
   superuserSecret:
     name: cloudnative-pg-secret
   enableSuperuserAccess: true
@@ -44,7 +44,7 @@ spec:
       endpointURL: https://s3.${SECRET_DOMAIN}
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster trigger
-      serverName: &currentCluster cluster1-v9
+      serverName: &currentCluster cluster1-v10
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
