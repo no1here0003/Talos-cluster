@@ -21,7 +21,7 @@ cniConfig:
 nodes:
   - hostname: "nuc10i7-1"
     ipAddress: "192.168.10.151"
-    installDisk: "/dev/sdb"
+    installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
     networkInterfaces:
@@ -39,7 +39,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.4"
-    installDisk: "/dev/sdb"
+    installDisk: "/dev/sda"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
     networkInterfaces:
@@ -57,7 +57,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.5"
-    installDisk: "/dev/sdb"
+    installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
     networkInterfaces:
@@ -73,7 +73,7 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-2"
     ipAddress: "192.168.10.7"
-    installDisk: "/dev/sdb"
+    installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
     networkInterfaces:
@@ -89,9 +89,13 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-3"
     ipAddress: "192.168.10.8"
-    installDisk: "/dev/sdb"
+    installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
+    machineDisks:
+      - device: /dev/nvme0n1
+        partitions:
+          - mountpoint: /var/lib/longhorn/
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:*
@@ -105,9 +109,13 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-4"
     ipAddress: "192.168.10.9"
-    installDisk: "/dev/sdb"
+    installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
+    machineDisks:
+      - device: /dev/nvme0n1
+        partitions:
+          - mountpoint: /var/lib/longhorn/
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:*
@@ -235,9 +243,9 @@ controlPlane:
               type: bind
               source: /var/openebs/local
               options: ["bind", "rshared", "rw"]
-            - destination: /var/lib/longhorn/
+            - destination: /var/lib/longhorn
               type: bind
-              source: /dev/nvme0n1
+              source: /var/lib/longhorn
               options: ["bind", "rshared", "rw"]
 
     # Longhorn mount
