@@ -26,6 +26,14 @@ spec:
       retries: 3
   values:
     controller:
+      volumeSnapshotClasses:
+        - name: longhorn-snapclass
+          annotations:
+            snapshot.storage.kubernetes.io/is-default-class: "true"
+          driver: driver.longhorn.io
+          deletionPolicy: Delete
+          parameters:
+            type: snap  # a CSI snapshot maps to a Longhorn snapshot
       serviceMonitor:
         create: true
     webhook:
