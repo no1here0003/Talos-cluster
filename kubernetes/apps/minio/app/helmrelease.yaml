@@ -51,8 +51,8 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-05-10T01-41-38Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN},https://s3.${SECRET_DOMAIN}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN2},https://s3.${SECRET_DOMAIN2}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN2}
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_URL: https://prometheus.${INTERNAL_DOMAIN}
               MINIO_PROMETHEUS_AUTH_TYPE: public
@@ -118,7 +118,7 @@ spec:
             more_set_headers "Host $host";
             more_set_headers "X-Forwarded-For $remote_addr"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN2}"
             paths:
               - path: /
                 service:
@@ -133,10 +133,10 @@ spec:
         enabled: true
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN2}
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: &s3Host s3.${SECRET_DOMAIN}
+          - host: &s3Host s3.${SECRET_DOMAIN2}
             paths:
               - path: /
                 service:

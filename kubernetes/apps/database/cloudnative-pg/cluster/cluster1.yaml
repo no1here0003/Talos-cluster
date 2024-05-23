@@ -41,10 +41,10 @@ spec:
         compression: bzip2
         maxParallel: 8
       destinationPath: s3://cnpg/
-      endpointURL: https://s3.${SECRET_DOMAIN}
+      endpointURL: https://s3.${SECRET_DOMAIN2}
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster trigger
-      serverName: &currentCluster cluster1-v12
+      serverName: &currentCluster cluster1-v13
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
