@@ -26,8 +26,8 @@ spec:
   dependsOn:
     - name: openebs
       namespace: openebs-system
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: longhorn
+      namespace: longhorn
   valuesFrom:
     - targetPath: objstoreConfig.value.config.bucket
       kind: Secret

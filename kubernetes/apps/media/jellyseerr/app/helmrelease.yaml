@@ -27,8 +27,8 @@ spec:
     keepHistory: false
 
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: longhorn
+      namespace: longhorn
     - name: volsync
       namespace: volsync-system
 
