@@ -51,10 +51,10 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-05-10T01-41-38Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN2},https://s3.${SECRET_DOMAIN2}
-              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN2}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN},https://s3.${SECRET_DOMAIN}
+              MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN}
               MINIO_PROMETHEUS_JOB_ID: minio
-              MINIO_PROMETHEUS_URL: https://prometheus.${INTERNAL_DOMAIN}
+              MINIO_PROMETHEUS_URL: https://thanos.observability.svc.cluster.local
               MINIO_PROMETHEUS_AUTH_TYPE: public
               MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
               MINIO_UPDATE: "off"
@@ -136,7 +136,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN2}
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: &s3Host s3.${SECRET_DOMAIN2}
+          - host: &s3Host s3.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
