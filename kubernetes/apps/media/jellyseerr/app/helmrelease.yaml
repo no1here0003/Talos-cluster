@@ -28,7 +28,7 @@ spec:
 
   dependsOn:
     - name: longhorn
-      namespace: longhorn
+      namespace: storage
     - name: volsync
       namespace: volsync-system
 

@@ -27,7 +27,7 @@ spec:
     - name: openebs
       namespace: openebs-system
     - name: longhorn
-      namespace: longhorn
+      namespace: storage
   valuesFrom:
     - targetPath: objstoreConfig.value.config.bucket
       kind: Secret
