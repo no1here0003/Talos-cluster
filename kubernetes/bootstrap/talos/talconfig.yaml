@@ -227,7 +227,7 @@ controlPlane:
           net.ipv4.tcp_window_scaling: 1
 
     # Mount openebs-hostpath in kubelet
-    - &openebsPatch |-
+    - &mountsPatch |-
       machine:
         kubelet:
           extraMounts:
@@ -235,6 +235,14 @@ controlPlane:
               type: bind
               source: /var/openebs/local
               options: ["bind", "rshared", "rw"]
+            - destination: /var/lib/longhorn/
+              type: bind
+              source: /dev/nvme0n1
+              options: ["bind", "rshared", "rw"]
+
+    # Longhorn mount
+    - &longhornPatch |-
+      machine
 
     # Various udev rules
     - &udevPatch |-
