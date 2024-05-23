@@ -321,5 +321,5 @@ worker:
     - *timeServerPatch
     - *sysctlPatch
     - *talosPatch
-    - *openebsPatch
+    - *mountsPatch
     - *udevPatch
