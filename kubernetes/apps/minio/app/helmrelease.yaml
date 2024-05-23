@@ -56,7 +56,7 @@ spec:
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_URL: https://thanos.observability.svc.cluster.local
               MINIO_PROMETHEUS_AUTH_TYPE: public
-              MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
+              MINIO_SERVER_URL: https://s.${SECRET_DOMAIN}
               MINIO_UPDATE: "off"
             envFrom:
               - secretRef:
@@ -118,7 +118,7 @@ spec:
             more_set_headers "Host $host";
             more_set_headers "X-Forwarded-For $remote_addr"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN2}"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -136,7 +136,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN2}
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: &s3Host s.${SECRET_DOMAIN2}
+          - host: &s3Host s.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
