@@ -313,4 +313,5 @@ worker:
     - *timeServerPatch
     - *sysctlPatch
     - *talosPatch
+    - *openebsPatch
     - *udevPatch
