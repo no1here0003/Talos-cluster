@@ -136,7 +136,7 @@ spec:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN2}
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: &s3Host s3.${SECRET_DOMAIN}
+          - host: &s3Host s3.${SECRET_DOMAIN2}
             paths:
               - path: /
                 service:
