@@ -118,7 +118,7 @@ spec:
             more_set_headers "Host $host";
             more_set_headers "X-Forwarded-For $remote_addr"
         hosts:
-          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          - host: &host "m.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
