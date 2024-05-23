@@ -133,7 +133,7 @@ spec:
         enabled: true
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN2}
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
           - host: &s3Host s.${SECRET_DOMAIN}
