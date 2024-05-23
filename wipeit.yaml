@@ -1,0 +1,26 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: b6
+  namespace: default
+spec:
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      automountServiceAccountToken: false
+      restartPolicy: Never
+      nodeName: nuc13i7-4
+      containers:
+        - name: main
+          image: ghcr.io/onedr0p/alpine:rolling
+          command: ["/bin/sh", "-c"]
+          args:
+            - apk add --no-cache sgdisk util-linux util-linux-misc parted device-mapper;
+              sgdisk --zap-all /dev/nvme0n1;
+              dd if=/dev/zero of=/dev/nvme0n1 bs=1M count=100 oflag=direct,dsync;
+              blkdiscard /dev/nvme0n1;
+              partprobe /dev/nvme0n1;
+          securityContext:
+            privileged: true
+          resources: {}
