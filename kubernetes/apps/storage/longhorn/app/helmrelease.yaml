@@ -29,7 +29,7 @@ spec:
       snapshotMaxCount: 2
       # Below requires that nodes used for storage have the label
       # node.longhorn.io/create-default-disk=true
-      createDefaultDiskLabeledNodes: true
+      createDefaultDiskLabeledNodes: false
       storageOverProvisioningPercentage: 150
       storageMinimalAvailablePercentage: 50
       guaranteedEngineManagerCPU: 20

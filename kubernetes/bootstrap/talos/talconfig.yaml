@@ -39,7 +39,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.4"
-    installDisk: "/dev/sda"
+    installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
     networkInterfaces:
@@ -92,10 +92,6 @@ nodes:
     installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
-    machineDisks:
-      - device: /dev/nvme0n1
-        partitions:
-          - mountpoint: /var/lib/longhorn/
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:*
@@ -112,10 +108,6 @@ nodes:
     installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
-    machineDisks:
-      - device: /dev/nvme0n1
-        partitions:
-          - mountpoint: /var/lib/longhorn/
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:*
@@ -235,7 +227,7 @@ controlPlane:
           net.ipv4.tcp_window_scaling: 1
 
     # Mount openebs-hostpath in kubelet
-    - &mountsPatch |-
+    - &openebsPatch |-
       machine:
         kubelet:
           extraMounts:
@@ -246,11 +238,7 @@ controlPlane:
             - destination: /var/lib/longhorn
               type: bind
               source: /var/lib/longhorn
-              options: ["bind", "rshared", "rw"]
-
-    # Longhorn mount
-    - &longhornPatch |-
-      machine
+              options: ["bind","rshared", "rw"]
 
     # Various udev rules
     - &udevPatch |-
@@ -329,5 +317,5 @@ worker:
     - *timeServerPatch
     - *sysctlPatch
     - *talosPatch
-    - *mountsPatch
+    - *openebsPatch
     - *udevPatch
