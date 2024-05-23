@@ -56,7 +56,7 @@ nodes:
         vip:
           ip: "192.168.10.15"
   - hostname: "nuc13i7-1"
-    ipAddress: "192.168.10.6"
+    ipAddress: "192.168.10.5"
     installDisk: "/dev/sdb"
     talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
