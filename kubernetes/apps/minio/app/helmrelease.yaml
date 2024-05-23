@@ -51,7 +51,7 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2024-05-10T01-41-38Z
             env:
-              MINIO_API_CORS_ALLOW_ORIGIN: https://m.${SECRET_DOMAIN},https://s.${SECRET_DOMAIN}
+              MINIO_API_CORS_ALLOW_ORIGIN: https://m.${SECRET_DOMAIN},https://s2.${SECRET_DOMAIN}
               MINIO_BROWSER_REDIRECT_URL: https://m.${SECRET_DOMAIN}
               MINIO_PROMETHEUS_JOB_ID: minio
               MINIO_PROMETHEUS_URL: https://thanos.observability.svc.cluster.local
@@ -135,7 +135,7 @@ spec:
         annotations:
           cert-manager.io/cluster-issuer: letsencrypt-production
         hosts:
-          - host: &s3Host s.${SECRET_DOMAIN}
+          - host: &s3Host s2.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
