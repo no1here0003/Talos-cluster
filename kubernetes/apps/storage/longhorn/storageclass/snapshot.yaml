@@ -13,4 +13,4 @@ parameters:
 allowVolumeExpansion: true
 volumeBindingMode: Immediate
 metadata:
-  name: longhorn-snapclass
+  name: longhorn-snapshot
