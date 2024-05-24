@@ -22,7 +22,7 @@ nodes:
   - hostname: "nuc10i7-1"
     ipAddress: "192.168.10.151"
     installDisk: "/dev/nvme0n1"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
+    talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -40,7 +40,7 @@ nodes:
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.4"
     installDisk: "/dev/nvme0n1"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
+    talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -58,7 +58,7 @@ nodes:
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.5"
     installDisk: "/dev/nvme0n1"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
+    talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
@@ -71,10 +71,26 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "192.168.10.1"
+  - hostname: "nuc11i7-1"
+    ipAddress: "192.168.10.2"
+    installDisk: "/dev/nvme0n1"
+    talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: 00:30:93:*
+          driver: atlantic
+        dhcp: false
+        addresses:
+          - "192.168.10.2/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.10.1"
   - hostname: "nuc13i7-2"
     ipAddress: "192.168.10.7"
     installDisk: "/dev/nvme0n1"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
+    talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -90,7 +106,7 @@ nodes:
   - hostname: "nuc13i7-3"
     ipAddress: "192.168.10.8"
     installDisk: "/dev/nvme0n1"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
+    talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
@@ -106,7 +122,7 @@ nodes:
   - hostname: "nuc13i7-4"
     ipAddress: "192.168.10.9"
     installDisk: "/dev/nvme0n1"
-    talosImageURL: factory.talos.dev/installer/9ee7ffa7cb2e92660b0e735a411e9806ed353d9d6c09062fbce7795461f2990a
+    talosImageURL: factory.talos.dev/installer/3f324ce63604a56f0670c96caca02f4ae6c9941f1baaef269ad4c9639b9ae27f
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
