@@ -64,7 +64,7 @@ spec:
       schemaConfig:
         configs:
           - from: "2024-04-01" # quote
-            store: tsda
+            store: tsdb
             object_store: s3
             schema: v13
             index:
