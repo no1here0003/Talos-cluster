@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "{APP}-unlock-snapshots"
-  namespace: "{ns}}"
+  name: "radarr-unlock-snapshots"
+  namespace: "downloads"
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -21,4 +21,4 @@ spec:
             - --remove-all
           envFrom:
             - secretRef:
-                name: "{APP}-volsync-secret"
+                name: "radarr-volsync-secret"
