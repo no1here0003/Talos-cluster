@@ -57,17 +57,17 @@ nodes:
         vip:
           ip: "192.168.10.15"
   - hostname: "nuc13i7-1"
-    ipAddress: "192.168.10.6"
+    ipAddress: "192.168.10.5"
     installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
-    controlPlane: true
+    controlPlane: false
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:*
           driver: atlantic
         dhcp: false
         addresses:
-          - "192.168.10.6/24"
+          - "192.168.10.5/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -76,7 +76,7 @@ nodes:
     ipAddress: "192.168.10.2"
     installDisk: "/dev/nvme0n1"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
-    controlPlane: false
+    controlPlane: true
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:*
