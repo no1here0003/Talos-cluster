@@ -44,7 +44,7 @@ spec:
       endpointURL: https://s2.${SECRET_DOMAIN}
       # Note: serverName version needs to be inclemented
       # when recovering from an existing cnpg cluster trigger
-      serverName: &currentCluster cluster1-v18
+      serverName: &currentCluster cluster1-v19
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
@@ -56,7 +56,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster cluster1-v4
+      source: &previousCluster cluster1-v18
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   externalClusters:
     - name: *previousCluster
