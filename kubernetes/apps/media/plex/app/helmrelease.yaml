@@ -37,15 +37,15 @@ spec:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
       securityContext:
-        runAsUser: 568
+        runAsUser: 0
         runAsGroup: 568
         fsGroup: 568
         fsGroupChangePolicy: "OnRootMismatch"
         supplementalGroups:
           - 44
-          - 105
+          - 107
           - 100
-          - 106
+          - 109
           - 1000
           - 65539
 
