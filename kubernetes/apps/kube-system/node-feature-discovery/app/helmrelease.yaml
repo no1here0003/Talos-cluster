@@ -29,9 +29,6 @@ spec:
     keepHistory: false
   values:
     worker:
-      tolerations:
-        - key: "node-role.kubernetes.io/control-plane"
-          operator: "Exists"
       config:
         core:
           sources: ["custom", "pci", "usb", "system"]
@@ -39,16 +36,4 @@ spec:
           usb:
             deviceClassWhitelist: ["02", "03", "0e", "ef", "fe", "ff"]
             deviceLabelFields: ["class", "vendor", "device"]
-    master:
-      tolerations:
-        - key: node-role.kubernetes.io/control-plane
-          operator: Exists
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            - weight: 1
-              preference:
-                matchExpressions:
-                  - key: "node-role.kubernetes.io/control-plane"
-                    operator: In
-                    values: [""]
+
