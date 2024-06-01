@@ -56,22 +56,28 @@ nodes:
             gateway: "192.168.10.1"
         vip:
           ip: "192.168.10.15"
-  # - hostname: "beast-1"
-  #   ipAddress: "192.168.10.5"
-  #   installDisk: "/dev/nvme0n1"
-  #   talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
-  #   controlPlane: false
-  #   networkInterfaces:
-  #     - deviceSelector:
-  #         hardwareAddr: 00:30:93:*
-  #         driver: atlantic
-  #       dhcp: false
-  #       addresses:
-  #         - "192.168.10.152/24"
-  #       mtu: 1500
-  #       routes:
-  #         - network: 0.0.0.0/0
-  #           gateway: "192.168.10.1"
+  - hostname: "beast-1"
+    ipAddress: "192.168.10.153"
+    installDiskSelector:
+      serial: S6B0NL0W511647Z
+    talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
+    controlPlane: false
+    networkInterfaces:
+      - interface: enp2s0f0
+        dhcp: false
+        addresses:
+          - "192.168.10.153/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.10.1"
+    machineDisks:
+      - device: /dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W342598T
+        partitions:
+          - mountpoint: /var/lib/longhorn
+      - device: /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_2TB_S7KHNJ0X200236M
+        partitions:
+          - mountpoint: /var/openebs/local
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.5"
     installDisk: "/dev/nvme0n1"
