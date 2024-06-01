@@ -56,6 +56,22 @@ nodes:
             gateway: "192.168.10.1"
         vip:
           ip: "192.168.10.15"
+  # - hostname: "beast-1"
+  #   ipAddress: "192.168.10.5"
+  #   installDisk: "/dev/nvme0n1"
+  #   talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
+  #   controlPlane: false
+  #   networkInterfaces:
+  #     - deviceSelector:
+  #         hardwareAddr: 00:30:93:*
+  #         driver: atlantic
+  #       dhcp: false
+  #       addresses:
+  #         - "192.168.10.152/24"
+  #       mtu: 1500
+  #       routes:
+  #         - network: 0.0.0.0/0
+  #           gateway: "192.168.10.1"
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.5"
     installDisk: "/dev/nvme0n1"
@@ -211,7 +227,7 @@ controlPlane:
       machine:
         logging:
           destinations:
-            - endpoint: udp://vector.kubecloud.org:6002
+            - endpoint: udp://vector.$SECRET_DOMAIN:6002
               format: json_lines
 
     # Force nameserver
@@ -296,7 +312,7 @@ controlPlane:
             - mitigations=off
             - module_blacklist=tg3
             - net.ifnames=0
-            - talos.logging.kernel=udp://vector.kubecloud.org:6001/
+            - talos.logging.kernel=udp://vector.$SECRET_DOMAIN:6001/
           legacyBIOSSupport: true
 
     # Cluster configuration
