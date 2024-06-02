@@ -27,7 +27,7 @@ nodes:
     controlPlane: true
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:*
+          hardwareAddr: 00:30:93:12:45:5e
           driver: atlantic
         dhcp: false
         addresses:
@@ -63,7 +63,8 @@ nodes:
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
     networkInterfaces:
-      - interface: enp2s0f0
+      - deviceSelector:
+          hardwareAddr: 58:47:ca:77:27:92
         dhcp: false
         addresses:
           - "192.168.10.153/24"
@@ -80,13 +81,12 @@ nodes:
           - mountpoint: /var/openebs/local
   - hostname: "nuc13i7-1"
     ipAddress: "192.168.10.5"
-    installDisk: "/dev/nvme0n1"
+    installDisk: "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_1TB_S75BNL0WC27255R"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:*
-          driver: atlantic
+          hardwareAddr: 00:30:93:12:1b:aa
         dhcp: false
         addresses:
           - "192.168.10.5/24"
@@ -94,6 +94,10 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "192.168.10.1"
+    machineDisks:
+      - device: "/dev/disk/by-id/nvme-Samsung_SSD_980_PRO_2TB_S6B0NL0W335568X"
+        partitions:
+          - mountpoint: /var/lib/longhorn
   - hostname: "nuc11i7-1"
     ipAddress: "192.168.10.2"
     installDisk: "/dev/nvme0n1"
@@ -112,12 +116,12 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc11i7-2"
     ipAddress: "192.168.10.3"
-    installDisk: "/dev/nvme0n1"
+    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R736227H"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
     networkInterfaces:
       - deviceSelector:
-          hardwareAddr: 00:30:93:*
+          hardwareAddr: 00:30:93:12:16:7a
           driver: atlantic
         dhcp: false
         addresses:
@@ -241,13 +245,15 @@ controlPlane:
       machine:
         network:
           nameservers:
+            - "192.168.1.1"
 
     # Configure NTP
     - &timeServerPatch |-
       machine:
         time:
           disabled: false
-          servers: ["time.cloudflare.com"]
+          servers:
+            - "192.168.1.1"
 
     # Configure NFS mount options
     - &nfsPatch |-
