@@ -57,7 +57,7 @@ nodes:
         vip:
           ip: "192.168.10.15"
   - hostname: "beast-1"
-    ipAddress: "192.168.10.153"
+    ipAddress: "192.168.10.10"
     installDiskSelector:
       serial: S6B0NL0W511647Z
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
@@ -67,7 +67,7 @@ nodes:
           hardwareAddr: 58:47:ca:77:27:92
         dhcp: false
         addresses:
-          - "192.168.10.153/24"
+          - "192.168.10.10/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -79,8 +79,8 @@ nodes:
       - device: /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_2TB_S7KHNJ0X200236M
         partitions:
           - mountpoint: /var/openebs/local
-  - hostname: "nuc13i7-1"
-    ipAddress: "192.168.10.5"
+  - hostname: "nuc13i7-5"
+    ipAddress: "192.168.10.11"
     installDisk: "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_1TB_S75BNL0WC27255R"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
@@ -89,7 +89,7 @@ nodes:
           hardwareAddr: 00:30:93:12:1b:aa
         dhcp: false
         addresses:
-          - "192.168.10.5/24"
+          - "192.168.10.11/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -114,9 +114,9 @@ nodes:
         routes:
           - network: 0.0.0.0/0
             gateway: "192.168.10.1"
-  - hostname: "nuc11i7-2"
-    ipAddress: "192.168.10.3"
-    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R736227H"
+  - hostname: "nuc11i7-0"
+    ipAddress: "192.168.10.12"
+    installDisk: "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S2RANB0HA43989D"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
     networkInterfaces:
@@ -125,11 +125,15 @@ nodes:
           driver: atlantic
         dhcp: false
         addresses:
-          - "192.168.10.3/24"
+          - "192.168.10.12/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
             gateway: "192.168.10.1"
+    machineDisks:
+      - device: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R736227H"
+        partitions:
+          - mountpoint: /var/lib/longhorn
   - hostname: "nuc13i7-2"
     ipAddress: "192.168.10.7"
     installDisk: "/dev/nvme0n1"
