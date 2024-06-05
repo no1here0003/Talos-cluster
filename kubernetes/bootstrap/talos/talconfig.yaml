@@ -136,7 +136,7 @@ nodes:
           - mountpoint: /var/lib/longhorn
   - hostname: "nuc13i7-2"
     ipAddress: "192.168.10.7"
-    installDisk: "/dev/nvme0n1"
+    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S6S2NS0W314728D"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
     networkInterfaces:
@@ -152,7 +152,7 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-3"
     ipAddress: "192.168.10.8"
-    installDisk: "/dev/nvme0n1"
+    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0W626871V"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
     networkInterfaces:
@@ -168,7 +168,7 @@ nodes:
             gateway: "192.168.10.1"
   - hostname: "nuc13i7-4"
     ipAddress: "192.168.10.9"
-    installDisk: "/dev/nvme0n1"
+    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_2TB_S7KHNJ0X104670T"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
     networkInterfaces:
