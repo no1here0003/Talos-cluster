@@ -83,7 +83,7 @@ spec:
       enabled: true
       endpoints: &cp
         - 192.168.10.151
-        - 192.168.10.2
+        - 192.168.10.3
         - 192.168.10.4
     kubeEtcd:
       enabled: true
