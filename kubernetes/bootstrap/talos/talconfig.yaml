@@ -79,6 +79,26 @@ nodes:
       - device: /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_2TB_S7KHNJ0X200236M
         partitions:
           - mountpoint: /var/openebs/local
+  - hostname: "beast-2"
+    ipAddress: "192.168.10.152"
+    installDiskSelector:
+      serial: 50026B7382F40B58
+    talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
+    controlPlane: false
+    networkInterfaces:
+      - deviceSelector:
+          hardwareAddr: 58:47:ca:77:2f:03
+        dhcp: false
+        addresses:
+          - "192.168.10.152/24"
+        mtu: 1500
+        routes:
+          - network: 0.0.0.0/0
+            gateway: "192.168.10.1"
+    machineDisks:
+      - device: /dev/disk/by-id/nvme-Samsung_SSD_990_PRO_4TB_S7KGNU0X501869P
+        partitions:
+          - mountpoint: /var/lib/longhorn
   - hostname: "nuc13i7-5"
     ipAddress: "192.168.10.11"
     installDisk: "/dev/disk/by-id/ata-Samsung_SSD_870_EVO_1TB_S75BNL0WC27255R"
