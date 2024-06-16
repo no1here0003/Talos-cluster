@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "jellyfintest-unlock-snapshots"
-  namespace: "media"
+  name: "radarr-unlock-snapshots"
+  namespace: "downloads"
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -21,4 +21,4 @@ spec:
             - --remove-all
           envFrom:
             - secretRef:
-                name: "jellyfin-test-volsync-secret"
+                name: "radarr-volsync-secret"
