@@ -120,7 +120,7 @@ nodes:
           - mountpoint: /var/lib/longhorn
   - hostname: "nuc11i7-1"
     ipAddress: "192.168.10.2"
-    installDisk: "/dev/nvme0n1"
+    installDisk: "dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R720938N"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: true
     networkInterfaces:
