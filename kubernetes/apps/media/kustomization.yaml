@@ -9,3 +9,4 @@ resources:
   - ./jellyfin/ks.yaml
   - ./jellyfin/ks-test.yaml
   - ./jellyseerr/ks.yaml
+  - ./maintainerr/ks.yaml
