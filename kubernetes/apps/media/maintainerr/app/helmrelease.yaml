@@ -1,0 +1,102 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/common-3.1.0/charts/library/common/values.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app maintainerr
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+
+  values:
+    global:
+      fullnameOverride: *app
+
+    controllers:
+      maintainerr:
+        enabled: true
+        type: deployment
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        replicas: 1
+
+        pod:
+          securityContext:
+            runAsUser: &context 1000
+            runAsGroup: *context
+            fsGroup: *context
+            fsGroupChangePolicy: "OnRootMismatch"
+
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jorenn92/maintainerr
+              tag: 2.0.4
+              pullPolicy: IfNotPresent
+
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
+
+            env:
+              TZ: "${TZ}"
+
+            resources:
+              requests:
+                cpu: 5m
+                memory: 128Mi
+              limits:
+                memory: 512Mi
+
+    service:
+      app:
+        primary: true
+        controller: maintainerr
+        ports:
+          http:
+            port: &port 6246
+
+    ingress:
+      internal:
+        enabled: true
+        className: internal
+        hosts:
+          - host: &host "maintainerr.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: maintainerr.tls
+
+
+    persistence:
+      config:
+        existingClaim: maintainerr
+        globalMounts:
+          - path: /opt/data
+      tmp:
+        type: emptyDir
+        medium: Memory
