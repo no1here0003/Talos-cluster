@@ -21,8 +21,8 @@ cniConfig:
 
 nodes:
   - hostname: "nuc10i7-1"
-    ipAddress: "192.168.10.151"
-    installDisk: "/dev/nvme0n1"
+    ipAddress: "192.168.10.2"
+    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANM0R536436N"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: true
     networkInterfaces:
@@ -31,7 +31,7 @@ nodes:
           driver: atlantic
         dhcp: false
         addresses:
-          - "192.168.10.151/24"
+          - "192.168.10.2/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
@@ -40,7 +40,7 @@ nodes:
           ip: "192.168.10.15"
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.3"
-    installDisk: "/dev/nvme0n1"
+    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R817498N"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: true
     networkInterfaces:
@@ -119,7 +119,7 @@ nodes:
         partitions:
           - mountpoint: /var/lib/longhorn
   - hostname: "nuc11i7-1"
-    ipAddress: "192.168.10.2"
+    ipAddress: "192.168.10.4"
     installDisk: "dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R720938N"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: true
@@ -129,7 +129,7 @@ nodes:
           driver: atlantic
         dhcp: false
         addresses:
-          - "192.168.10.2/24"
+          - "192.168.10.4/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
