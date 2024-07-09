@@ -135,7 +135,7 @@ nodes:
           - network: 0.0.0.0/0
             gateway: "192.168.10.1"
   - hostname: "nuc11i7-0"
-    ipAddress: "192.168.10.12"
+    ipAddress: "192.168.10.5"
     installDisk: "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S2RANB0HA43989D"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
     controlPlane: false
@@ -145,7 +145,7 @@ nodes:
           driver: atlantic
         dhcp: false
         addresses:
-          - "192.168.10.12/24"
+          - "192.168.10.5/24"
         mtu: 1500
         routes:
           - network: 0.0.0.0/0
