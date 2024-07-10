@@ -5,7 +5,7 @@ kind: Dragonfly
 metadata:
   name: dragonfly1
 spec:
-  image: docker.dragonflydb.io/dragonflydb/dragonfly:v1.20.0
+  image: docker.dragonflydb.io/dragonflydb/dragonfly:v1.20.1
   replicas: 3
   env:
     - name: AWS_ACCESS_KEY_ID
