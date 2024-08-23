@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "radarr-unlock-snapshots"
-  namespace: "downloads"
+  name: "plex-unlock-snapshots"
+  namespace: "media"
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -21,4 +21,4 @@ spec:
             - --remove-all
           envFrom:
             - secretRef:
-                name: "radarr-volsync-secret"
+                name: "plex-volsync-secret"

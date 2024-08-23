@@ -4,7 +4,7 @@
 # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
 talosVersion: v1.7.6
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-kubernetesVersion: v1.31.0
+kubernetesVersion: v1.30.4
 
 clusterName: &cluster talos
 endpoint: https://192.168.10.15:6443
@@ -271,14 +271,6 @@ controlPlane:
           nameservers:
             - "192.168.1.1"
 
-    # Configure NTP
-    - &timeServerPatch |-
-      machine:
-        time:
-          disabled: false
-          servers:
-            - "192.168.1.1"
-
     # Configure NFS mount options
     - &nfsPatch |-
       machine:
@@ -399,7 +391,6 @@ worker:
     - *loggingPatch
     - *nameserverPatch
     - *nfsPatch
-    - *timeServerPatch
     - *sysctlPatch
     - *talosPatch
     - *openebsPatch
