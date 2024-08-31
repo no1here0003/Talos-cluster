@@ -59,6 +59,8 @@ spec:
             port: http-wh-metrics
           initialDelaySeconds: 10
           timeoutSeconds: 5
+    extraArgs:
+      - --ingress-class=internal
     policy: sync
     txtOwnerId: main
     txtPrefix: k8s.
