@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "plex-unlock-snapshots"
+  name: "sonarr-unlock-snapshots"
   namespace: "media"
 spec:
   ttlSecondsAfterFinished: 3600
@@ -21,4 +21,4 @@ spec:
             - --remove-all
           envFrom:
             - secretRef:
-                name: "plex-volsync-secret"
+                name: "sonarr-volsync-secret"
