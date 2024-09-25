@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "sonarr-unlock-snapshots"
-  namespace: "media"
+  name: "bazarr-unlock-snapshots"
+  namespace: "downloads"
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -21,4 +21,4 @@ spec:
             - --remove-all
           envFrom:
             - secretRef:
-                name: "sonarr-volsync-secret"
+                name: "bazarr-volsync-secret"
