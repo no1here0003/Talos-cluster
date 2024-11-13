@@ -43,7 +43,7 @@ spec:
           app:
             image:
               repository: docker.io/fallenbagel/jellyseerr
-              tag: 2.0.1
+              tag: 2.1.0
             env:
               LOG_LEVEL: "info"
               PORT: 8080
