@@ -33,7 +33,7 @@ spec:
           app:
             image:
               repository: ghcr.io/drag0n141/kubernetes-kubectl
-              tag: 1.32.0@sha256:296203514b80633484838ac6e3b7070980b5e26783da908d17ea963f092b52a8
+              tag: 1.32.0@sha256:d64810412cc22ebb2762caf58150672ea30263cffb27d4473bb10ff9110be105
             command: ["/bin/bash", "/app/opnsense-backup.sh"]
             envFrom:
               - secretRef:
