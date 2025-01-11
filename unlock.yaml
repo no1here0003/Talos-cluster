@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "bazarr-unlock-snapshots"
+  name: "sabnzbd-unlock-snapshots"
   namespace: "downloads"
 spec:
   ttlSecondsAfterFinished: 3600
@@ -14,11 +14,11 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: unlock-minio
+        - name: unlock-sabnzbd
           image: docker.io/restic/restic:0.16.2
           args:
             - unlock
             - --remove-all
           envFrom:
             - secretRef:
-                name: "bazarr-volsync-secret"
+                name: "sabnzbd-volsync-secret"
