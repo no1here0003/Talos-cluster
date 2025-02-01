@@ -113,6 +113,7 @@ spec:
         enabled: true
         className: internal
         annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
           cert-manager.io/cluster-issuer: letsencrypt-production
           nginx.ingress.kubernetes.io/configuration-snippet: |
             more_set_headers "Host $host";
