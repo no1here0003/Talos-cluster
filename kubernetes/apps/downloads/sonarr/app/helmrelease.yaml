@@ -86,7 +86,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "sonarr.${INTERNAL_DOMAIN}"
+          - host: &host "sonarr.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
