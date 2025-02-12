@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "tautulli-unlock-snapshots"
-  namespace: "media"
+  name: "sabnzbd-unlock-snapshots"
+  namespace: "downloads"
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -14,11 +14,11 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: unlock-tautulli
+        - name: unlock-sabnzbd
           image: docker.io/restic/restic:0.16.2
           args:
             - unlock
             - --remove-all
           envFrom:
             - secretRef:
-                name: "tautulli-volsync-secret"
+                name: "sabnzbd-volsync-secret"
