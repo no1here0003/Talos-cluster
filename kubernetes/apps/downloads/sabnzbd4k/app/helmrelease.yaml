@@ -86,7 +86,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: sabnzbd.tls
+            secretName: sabnzbd4k.tls
 
 
     persistence:
@@ -97,7 +97,7 @@ spec:
 
       downloads:
         enabled: true
-        existingClaim: sabnzbd-downloads-v1
+        existingClaim: sabnzbd4k-downloads-v1
         globalMounts:
           - path: /downloads
 
