@@ -90,7 +90,7 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: sonarr
+                  identifier: sonarr4k
                   port: http
         tls:
           - hosts:
