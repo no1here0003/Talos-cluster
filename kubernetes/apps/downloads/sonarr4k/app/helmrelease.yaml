@@ -111,46 +111,27 @@ spec:
       #       readOnly: true
 
       media:
-        type: nfs
-        path: /volume1/Media
-        globalMounts:
-          - path: /media
-
-      media2:
-        type: nfs
-        path: /volume1/Media2
-        globalMounts:
-          - path: /media2
 
       media3:
         type: nfs
-        path: /volume1/Media
+        path: /mnt/volume01/4k
         globalMounts:
-          - path: /media3
+          - path: /media
 
       temp:
         type: nfs
-        path: /volume1/temp
+        path: /mnt/volume01/sabnzbd4k
         globalMounts:
           - path: /temp_dir
 
   valuesFrom:
     - kind: Secret
       name: *app
-      valuesKey: NAS1_ADDR
+      valuesKey: NAS4_ADDR
       targetPath: persistence.media.server
 
     - kind: Secret
       name: *app
-      valuesKey: NAS1_ADDR
+      valuesKey: NAS4_ADDR
       targetPath: persistence.temp.server
 
-    - kind: Secret
-      name: *app
-      valuesKey: NAS2_ADDR
-      targetPath: persistence.media2.server
-
-    - kind: Secret
-      name: *app
-      valuesKey: NAS3_ADDR
-      targetPath: persistence.media3.server

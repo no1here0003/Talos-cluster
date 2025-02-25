@@ -114,7 +114,7 @@ spec:
   valuesFrom:
     - kind: Secret
       name: *app
-      valuesKey: NAS1_ADDR
+      valuesKey: NAS4_ADDR
       targetPath: persistence.temp.server
 
     - kind: Secret
