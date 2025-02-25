@@ -107,6 +107,12 @@ spec:
         globalMounts:
           - path: /temp_dir
 
+      temp4k:
+        type: nfs
+        path: /mnt/volume01/sabnzbd4k
+        globalMounts:
+          - path: temp_dir4k
+
     resources:
       requests:
         memory: 250Mi
@@ -119,3 +125,7 @@ spec:
       name: *app
       valuesKey: NAS1_ADDR
       targetPath: persistence.temp.server
+    - kind: Secret
+      name: *app
+      valuesKey: NAS3_ADDR
+      targetPath: persistence.temp4k.server
