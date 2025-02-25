@@ -56,7 +56,7 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster cluster1-v21
+      source: &previousCluster cluster1-v20
       recoveryTarget:
         # Time base target for the recovery
         targetTime: "2025-02-25 08:14:21.00000+02"
