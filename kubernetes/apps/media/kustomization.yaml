@@ -8,6 +8,6 @@ resources:
   - ./overseerr4k/ks.yaml
   - ./tautulli/ks.yaml
   - ./jellyfin/ks.yaml
-  - ./jellyfin/ks-test.yaml
+  # - ./jellyfin/ks-test.yaml
   - ./jellyseerr/ks.yaml
   - ./maintainerr/ks.yaml
