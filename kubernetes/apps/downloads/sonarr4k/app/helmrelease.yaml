@@ -111,8 +111,6 @@ spec:
       #       readOnly: true
 
       media:
-
-      media3:
         type: nfs
         path: /mnt/volume01/4k
         globalMounts:
