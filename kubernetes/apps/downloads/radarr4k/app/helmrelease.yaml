@@ -80,7 +80,7 @@ spec:
             port: *port
 
     ingress:
-      radarr:
+      radarr4k:
         enabled: false
         className: "nginx"
         hosts:

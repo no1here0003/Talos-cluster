@@ -127,5 +127,5 @@ spec:
       targetPath: persistence.temp.server
     - kind: Secret
       name: *app
-      valuesKey: NAS3_ADDR
+      valuesKey: NAS4_ADDR
       targetPath: persistence.temp4k.server
