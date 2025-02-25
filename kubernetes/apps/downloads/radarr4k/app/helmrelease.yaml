@@ -115,7 +115,7 @@ spec:
     - kind: Secret
       name: *app
       valuesKey: NAS4_ADDR
-      targetPath: persistence.temp.server
+      targetPath: persistence.media.server
 
     - kind: Secret
       name: *app
