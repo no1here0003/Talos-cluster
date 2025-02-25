@@ -5,6 +5,7 @@ resources:
   - ./namespace.yaml
   - ./plex/ks.yaml
   - ./overseerr/ks.yaml
+  - ./overseerr4k/ks.yaml
   - ./tautulli/ks.yaml
   - ./jellyfin/ks.yaml
   - ./jellyfin/ks-test.yaml
