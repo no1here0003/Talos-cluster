@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app sabnzbd
+  name: &app radarr4k
   namespace: downloads
 spec:
   interval: 30m
@@ -15,19 +15,15 @@ spec:
         kind: HelmRepository
         name: bjw-s
         namespace: flux-system
-      interval: 30m
-
+  dependsOn:
+    - name: cloudnative-pg
+      namespace: database
   install:
     remediation:
       retries: 5
   upgrade:
     remediation:
       retries: 5
-  dependsOn:
-    - name: longhorn
-      namespace: storage
-    - name: volsync
-      namespace: volsync-system
   values:
 
     defaultPodOptions:
@@ -40,19 +36,30 @@ spec:
           - 65539
 
     controllers:
-      sabnzbd:
-
+      radarr4k:
         annotations:
           reloader.stakater.com/auto: "true"
 
-        containers:
-          sabnzbd:
+        initContainers:
+          init-db:
             image:
-              repository: ghcr.io/onedr0p/sabnzbd
-              tag: 4.4.1@sha256:78368fe35996a3f08f98fadaf8d336a133fe77faa191c873fda0e7494d0ac7cb
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16.6
+            envFrom: &envFrom
+              - secretRef:
+                  name: radarr4k
+
+        containers:
+          radarr4k:
+            image:
+              repository: ghcr.io/onedr0p/radarr-develop
+              tag: 5.19.1.9704@sha256:a7d1426e06c9da902cc79af75f9c45ed3277bfddfe383fe7132cfda681b0ef65
+
             env:
-              TZ: "America/New_York"
-              SABNZBD__PORT: &port 8080
+              TZ: "${TIMEZONE}"
+              RADARR__PORT: &port 7878
+              RADARR__AUTHENTICATION_METHOD: External
+            envFrom: *envFrom
 
             probes:
               liveness:
@@ -66,66 +73,51 @@ spec:
                   periodSeconds: 5
 
     service:
-      sabnzbd:
-        controller: *app
+      radarr4k:
+        controller: radarr4k
         ports:
           http:
             port: *port
 
     ingress:
-      sabnzbd:
+      radarr:
         enabled: false
         className: "nginx"
         hosts:
-          - host: &host "sabnzbd.${INTERNAL_DOMAIN}"
+          - host: &host "radarr4k.${INTERNAL_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: sabnzbd
+                  identifier: radarr4k
                   port: http
         tls:
           - hosts:
               - *host
-            secretName: sabnzbd.tls
-
+            secretName: radarr4k.tls
 
     persistence:
-
       config:
-        enabled: true
         existingClaim: *app
 
-      downloads:
-        enabled: true
-        existingClaim: sabnzbd-downloads-v1
+      media:
+        type: nfs
+        path: /mnt/volume01/4k
         globalMounts:
-          - path: /downloads
+          - path: /4k
 
       temp:
         type: nfs
-        path: /volume1/temp
-        globalMounts:
-          - path: /temp_dir
-
-      temp4k:
-        type: nfs
         path: /mnt/volume01/sabnzbd4k
         globalMounts:
-          - path: temp_dir4k
-
-    resources:
-      requests:
-        memory: 250Mi
-        cpu: 500m
-      limits:
-        memory: 16384Mi
+          - path: /temp_dir
 
   valuesFrom:
     - kind: Secret
       name: *app
       valuesKey: NAS1_ADDR
       targetPath: persistence.temp.server
+
     - kind: Secret
       name: *app
-      valuesKey: NAS3_ADDR
-      targetPath: persistence.temp4k.server
+      valuesKey: NAS4_ADDR
+      targetPath: persistence.temp.server
