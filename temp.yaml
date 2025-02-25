@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    meta.helm.sh/release-name: maintainerr
+    meta.helm.sh/release-namespace: media
+  creationTimestamp: "2024-06-30T16:21:58Z"
+  generation: 1
+  labels:
+    app.kubernetes.io/instance: maintainerr
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: maintainerr
+    helm.sh/chart: app-template-3.7.1
+    helm.toolkit.fluxcd.io/name: maintainerr
+    helm.toolkit.fluxcd.io/namespace: media
+  name: minio
+  namespace: minio
+  resourceVersion: "301339796"
+  uid: 8a5e78de-2d99-40a1-a1c6-c43079336188
+spec:
+  ingressClassName: internal
+  rules:
+  - host: m.chaoticark.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: minio
+            port:
+              number: 9001
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - m.chaoticark.net
+    secretName: m.tls
