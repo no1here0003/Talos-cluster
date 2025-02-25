@@ -76,7 +76,7 @@ spec:
 
     service:
       sonarr4k:
-        controller: sonarr
+        controller: sonarr4k
         ports:
           http:
             port: *port
@@ -95,7 +95,7 @@ spec:
         tls:
           - hosts:
               - *host
-            secretName: sonarr.tls
+            secretName: sonarr4k.tls
 
     persistence:
       config:
