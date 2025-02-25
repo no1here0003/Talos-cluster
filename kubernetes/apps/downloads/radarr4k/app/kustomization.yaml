@@ -5,4 +5,4 @@ resources:
   - ./../../../../templates/volsync
   - ./externalsecrets.yaml
   - ./helmrelease.yaml
-  - dashboard
+
