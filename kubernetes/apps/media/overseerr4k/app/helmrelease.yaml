@@ -1,0 +1,101 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: overseerr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts/
+      chart: app-template
+      version: 3.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
+  dependsOn:
+    - name: longhorn
+      namespace: storage
+    - name: volsync
+      namespace: volsync-system
+  values:
+
+    defaultPodOptions:
+      securityContext:
+        runAsUser: 568
+        runAsGroup: 568
+        fsGroup: 568
+        fsGroupChangePolicy: "OnRootMismatch"
+
+    controllers:
+      overseerr4k:
+        annotations:
+          reloader.stakater.com/auto: "true"
+
+        containers:
+          overseerr4k:
+            image:
+              repository: ghcr.io/sct/overseerr
+              tag: 1.33.2
+            env:
+              TZ: "America/New_York"
+              LOG_LEVEL: "info"
+
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
+              startup:
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+    service:
+      overseerr4k:
+        controller: overseerr4k
+        ports:
+          http:
+            port: 5055
+
+    ingress:
+      overseerr4k:
+        enabled: true
+        className: "external"
+        annotations:
+          cert-manager.io/cluster-issuer: letsencrypt-production
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN2}
+        hosts:
+          - host: &host "request4k.${SECRET_DOMAIN2}"
+            paths:
+              - path: /
+                service:
+                  identifier: overseerr4k
+                  port: http
+        tls:
+          - hosts:
+              - *host
+            secretName: overseer4k.tls
+
+    resources:
+      requests:
+        cpu: 15m
+        memory: 291M
+      limits:
+        cpu: 500m
+        memory: 4Gi
+
+    persistence:
+      config:
+        existingClaim: overseerr
+        globalMounts:
+          - path: /app/config
