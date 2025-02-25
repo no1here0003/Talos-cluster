@@ -56,11 +56,8 @@ spec:
   # cluster when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      volumeSnapshots:
-        storage:
-          name: postgres
-          kind: VolumeSnapshot
-          apiGroup: snapshot.storage.k8s.io
+      backup:
+        name: postgres
   # Note: externalClusters is needed when recovering from an existing cnpg cluster
   # externalClusters:
   #   - name: *previousCluster
