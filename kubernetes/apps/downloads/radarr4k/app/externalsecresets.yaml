@@ -3,25 +3,25 @@
 apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
-  name: &name sonarr-secrets
+  name: &name radarr4k-secrets
 spec:
   secretStoreRef:
     kind: ClusterSecretStore
     name: onepassword-connect
   target:
-    name: sonarr
+    name: radarr4k
     creationPolicy: Owner
     template:
       engineVersion: v2
       data:
-        SONARR__AUTH__APIKEY: "{{ .sonarr_api_key }}"
-        SONARR__POSTGRES__HOST: &dbHost "{{ .postgres_db_host }}"
-        SONARR__POSTGRES__PORT: "5432"
-        SONARR__POSTGRES__USER: &dbUser "{{ .sonarr_postgres_user }}"
-        SONARR__POSTGRES__PASSWORD: &dbPass "{{ .sonarr_postgres_pass }}"
-        SONARR__POSTGRES__MAINDB: sonarr4k_main
-        SONARR__POSTGRES__LOGDB: sonarr4k_log
-        INIT_POSTGRES_DBNAME: sonarr4k_main sonarr4k_log
+        RADARR__API_KEY: "{{ .radarr_api_key }}"
+        RADARR__POSTGRES_HOST: &dbHost "{{ .postgres_db_host }}"
+        RADARR__POSTGRES_PORT: "5432"
+        RADARR__POSTGRES_USER: &dbUser "{{ .radarr_postgres_user }}"
+        RADARR__POSTGRES_PASSWORD: &dbPass "{{ .radarr_postgres_pass }}"
+        RADARR__POSTGRES_MAIN_DB: radarr4k_main
+        RADARR__POSTGRES_LOG_DB: radarr4k_log
+        INIT_POSTGRES_DBNAME: radarr4k_main radarr4k_log
         INIT_POSTGRES_HOST: *dbHost
         INIT_POSTGRES_USER: *dbUser
         INIT_POSTGRES_PASS: *dbPass
@@ -30,14 +30,10 @@ spec:
         NAS2_ADDR: "{{ .nas2_addr }}"
         NAS3_ADDR: "{{ .nas3_addr }}"
         NAS4_ADDR: "{{ .nas4_addr }}"
-        # PUSHOVER_TOKEN: "{{ .SONARR_PUSHOVER_TOKEN }}"
-        # PUSHOVER_USER_KEY: "{{ .PUSHOVER_USER_KEY }}"
   dataFrom:
     - extract:
         key: cloudnative-pg
     - extract:
-        key: sonarr4k
+        key: radarr4k
     - extract:
         key: nas-info
-    - extract:
-        key: pushover
