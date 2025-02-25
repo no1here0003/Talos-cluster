@@ -81,8 +81,8 @@ spec:
 
     ingress:
       radarr4k:
-        enabled: false
-        className: "nginx"
+        enabled: true
+        className: "internal"
         hosts:
           - host: &host "radarr4k.${INTERNAL_DOMAIN}"
             paths:
