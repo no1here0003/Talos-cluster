@@ -109,7 +109,7 @@ spec:
         type: nfs
         path: /mnt/volume01/sabnzbd4k
         globalMounts:
-          - path: /temp_dir
+          - path: /temp_dir4k
 
   valuesFrom:
     - kind: Secret
