@@ -157,6 +157,13 @@ spec:
           - path: /media3
             readOnly: true
 
+      media4k:
+        type: nfs
+        path: /mnt/volume01/4k
+        globalMounts:
+          - path: /4k
+            readOnly: true
+
       backups:
         type: nfs
         path: /volume1/Kubernetes/plex
@@ -188,6 +195,11 @@ spec:
       name: *app
       valuesKey: NAS3_ADDR
       targetPath: persistence.media3.server
+
+    - kind: Secret
+      name: *app
+      valuesKey: NAS4_ADDR
+      targetPath: persistence.media4k.server
 
     - kind: Secret
       name: *app
