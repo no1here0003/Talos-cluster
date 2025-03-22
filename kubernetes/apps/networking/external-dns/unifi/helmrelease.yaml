@@ -8,6 +8,7 @@ spec:
   chartRef:
     kind: OCIRepository
     name: unifi-dns
+    namespace: flux-system
   install:
     disableSchemaValidation: true
     remediation:
