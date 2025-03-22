@@ -1,24 +1,20 @@
 ---
-# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: external-dns-unifi
+  name: &app unifi-dns
 spec:
-  interval: 30m
-  chart:
-    spec:
-      chart: external-dns
-      version: 1.16.0
-      sourceRef:
-        kind: HelmRepository
-        name: external-dns
-        namespace: flux-system
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: unifi-dns
   install:
+    disableSchemaValidation: true
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    disableSchemaValidation: true
     remediation:
       strategy: rollback
       retries: 3
@@ -41,11 +37,11 @@ spec:
               secretKeyRef:
                 name: &secret external-dns-unifi
                 key: UNIFI_USER
-          - name: UNIFI_PASS
+          - name: UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
                 name: *secret
-                key: UNIFI_PASS
+                key: UNIFI_API_KEY
         livenessProbe:
           httpGet:
             path: /healthz
