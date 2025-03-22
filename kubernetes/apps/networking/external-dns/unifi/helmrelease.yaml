@@ -39,11 +39,11 @@ spec:
               secretKeyRef:
                 name: &secret external-dns-unifi
                 key: UNIFI_USER
-          - name: UNIFI_API_KEY
+          - name: UNIFI_PASS
             valueFrom:
               secretKeyRef:
                 name: *secret
-                key: UNIFI_API_KEY
+                key: UNIFI_PASS
         livenessProbe:
           httpGet:
             path: /healthz
