@@ -23,6 +23,7 @@ resources:
   - ./postfinance.yaml
   - ./prometheus-community.yaml
   - ./rook-ceph.yaml
+  - ./unifi-external-dns.yaml
   - ./spegel.yaml
   - ./stakater.yaml
   - ./stevehipwell.yaml
