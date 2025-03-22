@@ -23,7 +23,6 @@ spec:
       strategy: rollback
       retries: 3
   values:
-    fullnameOverride: &app external-dns-unifi
     provider:
       name: webhook
       webhook:
