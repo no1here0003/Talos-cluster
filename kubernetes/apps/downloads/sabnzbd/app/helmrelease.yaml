@@ -97,7 +97,7 @@ spec:
 
       downloads:
         enabled: true
-        existingClaim: sabnzbd-downloads-v1
+        existingClaim: sabnzbd-downloads-v2
         globalMounts:
           - path: /downloads
 
