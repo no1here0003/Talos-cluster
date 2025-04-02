@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "jellyfin-unlock-snapshots"
+  name: "maintainerr-unlock-snapshots"
   namespace: "media"
 spec:
   ttlSecondsAfterFinished: 3600
@@ -14,11 +14,11 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: unlock-jellyfin
+        - name: unlock-maintainerr
           image: docker.io/restic/restic:0.16.2
           args:
             - unlock
             - --remove-all
           envFrom:
             - secretRef:
-                name: "jellyfin-volsync-secret"
+                name: "maintainerr-volsync-secret"
