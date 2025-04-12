@@ -2,7 +2,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "maintainerr-unlock-snapshots"
+  name: "overseerr4k-unlock-snapshots"
   namespace: "media"
 spec:
   ttlSecondsAfterFinished: 3600
@@ -14,11 +14,11 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: unlock-maintainerr
+        - name: unlock-overseerr4k
           image: docker.io/restic/restic:0.16.2
           args:
             - unlock
             - --remove-all
           envFrom:
             - secretRef:
-                name: "maintainerr-volsync-secret"
+                name: "overseerr4k-volsync-secret"
