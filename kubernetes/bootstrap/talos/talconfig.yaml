@@ -20,24 +20,24 @@ cniConfig:
   name: none
 
 nodes:
-  - hostname: "nuc10i7-1"
-    ipAddress: "192.168.10.2"
-    installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANM0R536436N"
-    talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
-    controlPlane: true
-    networkInterfaces:
-      - deviceSelector:
-          hardwareAddr: 00:30:93:12:45:5e
-          driver: atlantic
-        dhcp: false
-        addresses:
-          - "192.168.10.2/24"
-        mtu: 1500
-        routes:
-          - network: 0.0.0.0/0
-            gateway: "192.168.10.1"
-        vip:
-          ip: "192.168.10.15"
+  # - hostname: "nuc10i7-1"
+  #   ipAddress: "192.168.10.2"
+  #   installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_1TB_S59ANM0R536436N"
+  #   talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
+  #   controlPlane: true
+  #   networkInterfaces:
+  #     - deviceSelector:
+  #         hardwareAddr: 00:30:93:12:45:5e
+  #         driver: atlantic
+  #       dhcp: false
+  #       addresses:
+  #         - "192.168.10.2/24"
+  #       mtu: 1500
+  #       routes:
+  #         - network: 0.0.0.0/0
+  #           gateway: "192.168.10.1"
+  #       vip:
+  #         ip: "192.168.10.15"
   - hostname: "nuc10i7-2"
     ipAddress: "192.168.10.3"
     installDisk: "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R817498N"
@@ -138,7 +138,7 @@ nodes:
     ipAddress: "192.168.10.5"
     installDisk: "/dev/disk/by-id/ata-Samsung_SSD_850_EVO_500GB_S2RANB0HA43989D"
     talosImageURL: factory.talos.dev/installer/d0c3e835853d22377d0bb370d2058854b56c942fe0f9ee33d988b737c1842d90
-    controlPlane: false
+    controlPlane: true
     networkInterfaces:
       - deviceSelector:
           hardwareAddr: 00:30:93:12:16:7a
