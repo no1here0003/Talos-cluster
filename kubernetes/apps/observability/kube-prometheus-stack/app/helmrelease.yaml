@@ -82,7 +82,7 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &cp
-        - 192.168.10.2
+        - 192.168.10.5
         - 192.168.10.3
         - 192.168.10.4
     kubeEtcd:
