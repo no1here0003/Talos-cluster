@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: "overseerr4k-unlock-snapshots"
-  namespace: "media"
+  name: "sonarr-unlock-snapshots"
+  namespace: "downloads"
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -14,11 +14,11 @@ spec:
       automountServiceAccountToken: false
       restartPolicy: OnFailure
       containers:
-        - name: unlock-overseerr4k
+        - name: unlock-sonarr
           image: docker.io/restic/restic:0.16.2
           args:
             - unlock
             - --remove-all
           envFrom:
             - secretRef:
-                name: "overseerr4k-volsync-secret"
+                name: "sonarr-volsync-secret"
