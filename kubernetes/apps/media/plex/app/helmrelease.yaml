@@ -32,7 +32,6 @@ spec:
     - name: volsync
       namespace: volsync-system
   values:
-
     defaultPodOptions:
       nodeSelector:
         intel.feature.node.kubernetes.io/gpu: "true"
@@ -157,12 +156,12 @@ spec:
           - path: /media3
             readOnly: true
 
-      media4k:
-        type: nfs
-        path: /mnt/volume01/4k
-        globalMounts:
-          - path: /4k
-            readOnly: true
+        # media4k:
+        #   type: nfs
+        #   path: /mnt/volume01/4k
+        #   globalMounts:
+        #     - path: /4k
+        #       readOnly: true
 
       backups:
         type: nfs
@@ -196,10 +195,10 @@ spec:
       valuesKey: NAS3_ADDR
       targetPath: persistence.media3.server
 
-    - kind: Secret
-      name: *app
-      valuesKey: NAS4_ADDR
-      targetPath: persistence.media4k.server
+    # - kind: Secret
+    #   name: *app
+    #   valuesKey: NAS4_ADDR
+    #   targetPath: persistence.media4k.server
 
     - kind: Secret
       name: *app
