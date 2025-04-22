@@ -101,7 +101,7 @@ spec:
 
       media:
         type: nfs
-        path: /mnt/TrueNAS/Media
+        path: /mnt/TrueNAS/Media/4k
         globalMounts:
           - path: /4k
 
