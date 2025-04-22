@@ -112,13 +112,13 @@ spec:
 
       media:
         type: nfs
-        path: /mnt/volume01/4k
+        path: /mnt/TrueNAS/Media
         globalMounts:
           - path: /media
 
       temp:
         type: nfs
-        path: /mnt/volume01/sabnzbd4k
+        path: /mnt/TrueNAS/Media/sabnzbd4k
         globalMounts:
           - path: /temp_dir4k
 
