@@ -103,7 +103,7 @@ spec:
         type: nfs
         path: /mnt/TrueNAS/Media/4k/Movies
         globalMounts:
-          - path: /4k
+          - path: /Movies
 
       temp:
         type: nfs
