@@ -109,7 +109,7 @@ spec:
 
       temp4k:
         type: nfs
-        path: /mnt/volume01/sabnzbd4k
+        path: /mnt/TrueNAS/Media/sabnzbd4k
         globalMounts:
           - path: temp_dir4k
 
