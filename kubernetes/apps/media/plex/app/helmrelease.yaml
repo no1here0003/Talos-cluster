@@ -195,10 +195,10 @@ spec:
       valuesKey: NAS3_ADDR
       targetPath: persistence.media3.server
 
-    # - kind: Secret
-    #   name: *app
-    #   valuesKey: NAS4_ADDR
-    #   targetPath: persistence.media4k.server
+    - kind: Secret
+      name: *app
+      valuesKey: NAS4_ADDR
+      targetPath: persistence.media4k.server
 
     - kind: Secret
       name: *app
