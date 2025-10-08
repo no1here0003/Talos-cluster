@@ -61,7 +61,7 @@ spec:
           lidarr:
             image:
               repository: ghcr.io/home-operations/lidarr
-              tag: 2.11.2.4629
+              tag: 2.14.5.4836
             envFrom: *envFrom
 
     service:
